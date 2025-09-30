@@ -1,24 +1,30 @@
 // src/app/[locale]/layout.tsx
 import type { ReactNode } from "react";
+import { Geist, Geist_Mono } from "next/font/google";
+import "../globals.css";
 
-// Povolené jazyky
-type Locale = "sk" | "en" | "de";
+const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
-// Next 15 môže typovať `params` ako Promise<...>, preto spravíme union
-type Params = { locale: Locale };
-type MaybePromise<T> = T | Promise<T>;
+type Params = Promise<{ locale: "sk" | "en" | "de" }>;
 
-type Props = {
+export default async function LocaleLayout({
+  children,
+  params,
+}: {
   children: ReactNode;
-  params: MaybePromise<Params>;
-};
+  params: Params;
+}): Promise<ReactNode> {
+  const { locale } = await params;
 
-// Layout je server component (bez "use client") a môže byť async
-export default async function LocaleLayout({ children, params }: Props) {
-  // Znormalizeujeme prípadný Promise v `params`
-  const { locale } = await Promise.resolve(params);
-  // Lang nastavuj v root layoute (app/layout.tsx); tu len preposielame children
-  return <>{children}</>;
+  return (
+    <html lang={locale}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        {children}
+      </body>
+    </html>
+  );
 }
+
 
 
