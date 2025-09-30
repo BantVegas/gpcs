@@ -120,6 +120,7 @@ export default function GpcsLanding({ params }: { params: { lang: Locale } }) {
           <div className="pt-[env(safe-area-inset-top)]" />
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex h-16 items-center justify-between">
+              {/* left: logo */}
               <div className="flex items-center gap-2">
                 <Image
                   src="/gpcs.png"
@@ -133,37 +134,44 @@ export default function GpcsLanding({ params }: { params: { lang: Locale } }) {
                 <span className="hidden sm:inline text-sm text-slate-400">— Global Printing & Control Solutions</span>
               </div>
 
-              {/* Desktop nav (no “Technológie”, with “Prínosy”) */}
-              <nav className="hidden md:flex items-center gap-6 text-sm text-slate-300">
-                <a href="#produkty" className="hover:text-white">{t("nav.products")}</a>
-                <a href="#prinosy" className="hover:text-white">{t("nav.benefits")}</a>
-                <a href="#kontakt" className="hover:text-white">{t("nav.contact")}</a>
+              {/* right: langswitcher + nav/cta + hamburger */}
+              <div className="flex items-center gap-3">
+                {/* language switcher ALWAYS in header; shown on mobile here */}
+                <LangSwitcher className="md:hidden" />
 
-                <LangSwitcher className="ml-2" />
+                {/* Desktop nav (no LangSwitcher inside) */}
+                <nav className="hidden md:flex items-center gap-6 text-sm text-slate-300">
+                  <a href="#produkty" className="hover:text-white">{t("nav.products")}</a>
+                  <a href="#prinosy" className="hover:text-white">{t("nav.benefits")}</a>
+                  <a href="#kontakt" className="hover:text-white">{t("nav.contact")}</a>
 
-                <a
-                  href="#demo"
-                  className="inline-flex items-center gap-2 rounded-xl bg-white text-slate-900 px-4 py-2 font-medium hover:opacity-90"
+                  {/* language switcher for desktop, still in header bar */}
+                  <LangSwitcher className="ml-2" />
+
+                  <a
+                    href="#demo"
+                    className="inline-flex items-center gap-2 rounded-xl bg-white text-slate-900 px-4 py-2 font-medium hover:opacity-90"
+                  >
+                    {t("nav.demo")} <ArrowRight className="size-4" />
+                  </a>
+                </nav>
+
+                {/* Mobile hamburger */}
+                <button
+                  type="button"
+                  aria-label="Menu"
+                  aria-expanded={mobileOpen}
+                  aria-controls="mobile-menu"
+                  className="md:hidden inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 p-2"
+                  onClick={() => setMobileOpen((v) => !v)}
                 >
-                  {t("nav.demo")} <ArrowRight className="size-4" />
-                </a>
-              </nav>
-
-              {/* Mobile hamburger */}
-              <button
-                type="button"
-                aria-label="Menu"
-                aria-expanded={mobileOpen}
-                aria-controls="mobile-menu"
-                className="md:hidden inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 p-2"
-                onClick={() => setMobileOpen((v) => !v)}
-              >
-                {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
-              </button>
+                  {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+                </button>
+              </div>
             </div>
           </div>
 
-          {/* Mobile menu */}
+          {/* Mobile menu (LANGSWITCHER REMOVED FROM HERE) */}
           <m.nav
             id="mobile-menu"
             initial={false}
@@ -182,11 +190,6 @@ export default function GpcsLanding({ params }: { params: { lang: Locale } }) {
                 <a onClick={closeMenu} href="#kontakt" className="block rounded-lg px-3 py-3 hover:bg-white/5">
                   {t("nav.contact")}
                 </a>
-
-                <div className="mt-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2 w-full">
-                  <LangSwitcher className="w-full" />
-                </div>
-
                 <a
                   onClick={closeMenu}
                   href="#demo"
@@ -436,6 +439,7 @@ function Benefit({ title, text }: { title: string; text: string }) {
     </div>
   );
 }
+
 
 
 
