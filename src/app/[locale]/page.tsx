@@ -2,7 +2,6 @@
 'use client';
 
 import { useMemo, useState, useCallback, type ReactNode } from "react";
-import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { LazyMotion, domAnimation, m, useReducedMotion } from "framer-motion";
 import {
@@ -28,25 +27,38 @@ import {
 import LangSwitcher from "@/components/lang-switcher";
 
 // i18n messages
-// i18n messages
 import sk from "@/i18n/dictionaries/sk.json";
 import en from "@/i18n/dictionaries/en.json";
 import de from "@/i18n/dictionaries/de.json";
 
 type Locale = "sk" | "en" | "de";
+type Messages = typeof sk;
 type Feature = { icon: ReactNode; text: string };
 
-function createT(messages: Record<string, any>) {
-  return (path: string): any =>
-    path.split(".").reduce((acc: any, key) => (acc && acc[key] != null ? acc[key] : undefined), messages);
+// ---- small typed i18n helpers ----
+const MESSAGES: Record<Locale, Messages> = { sk, en, de };
+
+function getFromDict(dict: Messages, path: string): unknown {
+  return path.split(".").reduce<unknown>((acc, key) => {
+    if (typeof acc === "object" && acc !== null && key in (acc as Record<string, unknown>)) {
+      return (acc as Record<string, unknown>)[key];
+    }
+    return undefined;
+  }, dict as unknown);
 }
 
-export default function GpcsLanding() {
-  const pathname = usePathname();
-  const lang = (pathname?.split("/")?.[1] as Locale) || "sk";
-  const dict: Record<Locale, any> = { sk, en, de };
-  const messages = dict[lang] ?? dict.sk;
-  const t = createT(messages);
+function tString(dict: Messages, path: string): string {
+  const v = getFromDict(dict, path);
+  return typeof v === "string" ? v : path;
+}
+// -----------------------------------
+
+export default function GpcsLanding({ params }: { params: { lang: Locale } }) {
+  const lang: Locale = (params.lang ?? "sk") as Locale;
+  const messages = MESSAGES[lang] ?? MESSAGES.sk;
+
+  // memoized translator
+  const t = useCallback((path: string) => tString(messages, path), [messages]);
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -65,8 +77,7 @@ export default function GpcsLanding() {
       { icon: <Droplet className="size-5" />, text: t("scan.s5") },
       { icon: <Palette className="size-5" />, text: t("scan.s6") },
     ],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [lang]
+    [t]
   );
 
   const featuresMaint = useMemo<Feature[]>(
@@ -78,8 +89,7 @@ export default function GpcsLanding() {
       { icon: <Bell className="size-5" />, text: t("maint.s5") },
       { icon: <ShieldCheck className="size-5" />, text: t("maint.s6") },
     ],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [lang]
+    [t]
   );
 
   async function handleContactSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -123,7 +133,7 @@ export default function GpcsLanding() {
                 <span className="hidden sm:inline text-sm text-slate-400">— Global Printing & Control Solutions</span>
               </div>
 
-              {/* Desktop nav (bez „Technológie“, s „Prínosy“) */}
+              {/* Desktop nav (no “Technológie”, with “Prínosy”) */}
               <nav className="hidden md:flex items-center gap-6 text-sm text-slate-300">
                 <a href="#produkty" className="hover:text-white">{t("nav.products")}</a>
                 <a href="#prinosy" className="hover:text-white">{t("nav.benefits")}</a>
@@ -225,7 +235,9 @@ export default function GpcsLanding() {
                   </div>
                   <div>
                     <p className="font-semibold text-white">MaintControl</p>
-                    <p className="text-slate-400">{t("maint.s1").split(",")[0]} • {t("maint.s4").split(",")[0]} • {t("maint.s5").split(",")[0]}</p>
+                    <p className="text-slate-400">
+                      {t("maint.s1").split(",")[0]} • {t("maint.s4").split(",")[0]} • {t("maint.s5").split(",")[0]}
+                    </p>
                   </div>
                 </div>
               </m.div>
@@ -261,7 +273,7 @@ export default function GpcsLanding() {
           </div>
         </section>
 
-        {/* PRÍNOSY — presunuté na miesto „Technológie“ */}
+        {/* PRÍNOSY */}
         <section id="prinosy" className="scroll-mt-24 py-12 sm:py-16 border-y border-white/10 bg-white/5">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight">{t("benefits.title")}</h2>
@@ -291,7 +303,9 @@ export default function GpcsLanding() {
               </div>
               <div className="rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-6">
                 <form className="grid gap-3" onSubmit={handleContactSubmit}>
+                  {/* honeypot */}
                   <input type="text" name="honey" tabIndex={-1} autoComplete="off" className="hidden" />
+
                   <div>
                     <label className="block text-sm text-slate-300">{t("form.name")}</label>
                     <input name="name" required className="mt-1 w-full rounded-xl border border-white/15 bg-slate-900/60 px-3 py-2 text-base outline-none focus:ring-2 focus:ring-cyan-500" placeholder={t("form.namePh")} autoComplete="name" />
@@ -310,6 +324,7 @@ export default function GpcsLanding() {
                     <label className="block text-sm text-slate-300">{t("form.note")}</label>
                     <textarea name="message" rows={3} required className="mt-1 w-full rounded-xl border border-white/15 bg-slate-900/60 px-3 py-2 text-base outline-none focus:ring-2 focus:ring-cyan-500" placeholder={t("form.notePh")} />
                   </div>
+
                   <div className="flex flex-col sm:flex-row gap-3">
                     <button type="submit" disabled={status === "loading"} className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-cyan-500 px-5 py-3 font-medium text-slate-950 hover:bg-cyan-400 disabled:opacity-60">
                       {status === "loading" ? t("form.sending") : (<>{t("form.submit")} <ArrowRight className="size-4" /></>)}
@@ -318,6 +333,7 @@ export default function GpcsLanding() {
                       info@gpcs.sk
                     </a>
                   </div>
+
                   <p className="mt-2 text-sm" aria-live="polite">
                     {status === "success" && <span className="text-emerald-400">{t("form.ok")}</span>}
                     {status === "error" && <span className="text-rose-400">{t("form.err")}</span>}
@@ -420,6 +436,7 @@ function Benefit({ title, text }: { title: string; text: string }) {
     </div>
   );
 }
+
 
 
 
