@@ -1,6 +1,5 @@
 // src/app/[locale]/layout.tsx
 import type { ReactNode } from "react";
-import type { LayoutProps } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 
@@ -14,14 +13,21 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// Next 15: `params` is a Promise. Layout must match LayoutProps<"/[locale]">.
+// Use a structural type for props that matches what Next expects
+type LayoutParams = { locale: string };
+
 export default async function RootLayout({
   children,
   params,
-}: LayoutProps<"/[locale]">): Promise<ReactNode> {
-  const { locale } = await params; // <- Promise<{ locale: string }>
-  // normalize to our supported set, fallback to "sk"
-  const lang = locale === "en" || locale === "de" || locale === "sk" ? locale : "sk";
+}: {
+  children: ReactNode;
+  params: Promise<LayoutParams>;
+}): Promise<ReactNode> {
+  const { locale } = await params;
+
+  // normalize locale, fallback to "sk"
+  const lang =
+    locale === "en" || locale === "de" || locale === "sk" ? locale : "sk";
 
   return (
     <html lang={lang}>
