@@ -1,0 +1,122 @@
+{
+  "nav": {
+    "products": "Products",
+    "tech": "Technologies",
+    "benefits": "Benefits",
+    "contact": "Contact",
+    "demo": "Book a demo"
+  },
+  "badge": "AI for print & manufacturing",
+  "hero": {
+    "title": "Intelligent print inspection & maintenance",
+    "lead": "GPCS combines computer vision with industrial workflows. Scancontroll detects print defects in real time. MaintControl digitalizes maintenance, spare parts and notifications. Less waste, less downtime, more quality.",
+    "ctaDemo": "Try demo",
+    "ctaProducts": "See products"
+  },
+  "scan": {
+    "s1": "AI visual label inspection (SSIM/ΔE)",
+    "s2": "Barcode validation (EAN, Code128, DataMatrix)",
+    "s3": "Master vs scan alignment (SIFT/ORB, deskew)",
+    "s4": "OCR text comparison (diacritics, variants)",
+    "s5": "Density measurement (optical density, ΔD)",
+    "s6": "Pantone deviations (target library)"
+  },
+  "maint": {
+    "s1": "QR machine cards, failures & interventions",
+    "s2": "Planned maintenance (calendar, PM)",
+    "s3": "Failure predictions (AI risk, suggestions)",
+    "s4": "Spare parts & batches, costs",
+    "s5": "Push/SMS notifications",
+    "s6": "ACL, audit trail, exports"
+  },
+  "cards": {
+    "ocr": {
+      "sub": "Text + code = match",
+      "i1": "Master comparison",
+      "i2": "Diacritics & spacing",
+      "i3": "EAN/Code128 validation"
+    },
+    "ssim": {
+      "sub": "Colour & structure",
+      "i1": "ΔE2000 colour delta",
+      "i2": "SSIM image differences",
+      "i3": "Deskew & alignment"
+    },
+    "maint": {
+      "title": "Maintenance",
+      "sub": "Interventions under control",
+      "i1": "QR machine cards",
+      "i2": "Spare parts store",
+      "i3": "Push/SMS notifications",
+      "i4": "Failure predictions"
+    },
+    "integr": {
+      "title": "Integrations",
+      "sub": "FE+BE architecture",
+      "i1": "React + Tailwind",
+      "i2": "Spring Boot + FastAPI",
+      "i3": "Vercel / Railway / Render"
+    }
+  },
+  "products": {
+    "title": "Products",
+    "lead": "Two connected systems – for print and manufacturing maintenance.",
+    "scan": {
+      "title": "AI label & print inspection",
+      "desc": "Automatic defect detection, OCR/Barcode comparison and ΔE colour deviations. Master comparison, web segmentation, PDF reports."
+    },
+    "maint": {
+      "title": "Digital machine maintenance",
+      "desc": "QR machine cards, failure tracking, spare parts store, planning and costs. Overview for manager and technician."
+    }
+  },
+  "tech": {
+    "title": "Technologies",
+    "lead": "Modern FE/BE stack and computer vision. Open architecture for integrations."
+  },
+  "benefits": {
+    "title": "Benefits",
+    "b1": { "t": "Less defects & waste", "d": "Early detection of deviations reduces costs and complaints." },
+    "b2": { "t": "Shorter downtimes", "d": "Fast escalation, parts store and plan keep the line running." },
+    "b3": { "t": "Trustworthy reports", "d": "PDF outputs with metrics (OCR/ΔE/SSIM, barcode) and history." }
+  },
+  "demo": {
+    "title": "Book a consultation",
+    "lead": "Live demo on your samples or data. We advise on hardware, process and deployment.",
+    "i1": "A3 scanners, tablets, cameras",
+    "i2": "Integration with existing MES/ERP",
+    "i3": "On-prem or cloud deployment"
+  },
+  "form": {
+    "name": "Full name",
+    "namePh": "John Doe",
+    "phone": "Phone",
+    "note": "Note",
+    "notePh": "Briefly describe your need…",
+    "submit": "Send request",
+    "sending": "Sending…",
+    "ok": "Thanks, your message was sent.",
+    "err": "Failed to send. Try again or email info@gpcs.sk."
+  },
+  "footer": {
+    "sec": "Security & privacy",
+    "int": "Integrations & partnerships",
+    "docs": "Documentation"
+  },
+  "contact": {
+    "title": "Contact",
+    "company": "GPCS s. r. o.",
+    "addr1": "Doležalova 3424/15C",
+    "addr2": "Bratislava – Ružinov 821 04",
+    "icoLabel": "Company ID (IČO)",
+    "ico": "57 150 061",
+    "phoneLabel": "Phone",
+    "phoneDisplay": "0950 889 523",
+    "phoneLink": "+421950889523",
+    "emailLabel": "E-mail",
+    "email": "info@gpcs.sk",
+    "webLabel": "Web",
+    "web": "gpcs.sk"
+  }
+}
+

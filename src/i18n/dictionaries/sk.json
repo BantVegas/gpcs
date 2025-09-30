@@ -1,0 +1,121 @@
+{
+  "nav": {
+    "products": "Produkty",
+    "tech": "Technológie",
+    "benefits": "Prínosy",
+    "contact": "Kontakt",
+    "demo": "Rezervovať konzultáciu"
+  },
+  "badge": "AI pre tlač a výrobu",
+  "hero": {
+    "title": "Inteligentná kontrola tlače & údržba výroby",
+    "lead": "GPCS spája počítačové videnie a priemyselné workflow. Scancontroll odhaľuje tlačové defekty v reálnom čase. MaintControl digitalizuje údržbu strojov, sklad náhradných dielov a notifikácie. Menej odpadu, menej prestojov, viac kvality.",
+    "ctaDemo": "Vyskúšať demo",
+    "ctaProducts": "Pozrieť produkty"
+  },
+  "scan": {
+    "s1": "AI vizuálna kontrola etikiet (SSIM/ΔE)",
+    "s2": "Validácia čiarových kódov (EAN, Code128, DataMatrix)",
+    "s3": "Zarovnanie master vs. sken (SIFT/ORB, deskew)",
+    "s4": "OCR porovnanie textu (diakritika, varianty)",
+    "s5": "Meranie denzity (optická denzita, ΔD)",
+    "s6": "Pantone odchýlky (cieľová knižnica)"
+  },
+  "maint": {
+    "s1": "QR karty strojov, poruchy a zásahy",
+    "s2": "Plánovaná údržba (preventívne zásahy, kalendár)",
+    "s3": "Predikcie porúch (AI riziko, odporúčania)",
+    "s4": "Sklad ND, šarže, história a náklady",
+    "s5": "Push/SMS notifikácie pre manažéra a mechanika",
+    "s6": "ACL prístupy, audit trail a exporty"
+  },
+  "cards": {
+    "ocr": {
+      "sub": "Text + kód = zhoda",
+      "i1": "Porovnanie s masterom",
+      "i2": "Diakritika a medzery",
+      "i3": "EAN/Code128 validácia"
+    },
+    "ssim": {
+      "sub": "Farebnosť a štruktúra",
+      "i1": "ΔE2000 farebná odchýlka",
+      "i2": "SSIM obrazové rozdiely",
+      "i3": "Deskew & zarovnanie"
+    },
+    "maint": {
+      "title": "Údržba",
+      "sub": "Zásahy pod kontrolou",
+      "i1": "QR karty strojov",
+      "i2": "Sklad náhradných dielov",
+      "i3": "Push/SMS notifikácie",
+      "i4": "Predikcie porúch"
+    },
+    "integr": {
+      "title": "Integrácie",
+      "sub": "FE+BE architektúra",
+      "i1": "React + Tailwind",
+      "i2": "Spring Boot + FastAPI",
+      "i3": "Vercel / Railway / Render"
+    }
+  },
+  "products": {
+    "title": "Produkty",
+    "lead": "Naše jadro tvoria dva prepojené systémy – pre polygrafiu a výrobnú údržbu.",
+    "scan": {
+      "title": "AI kontrola etikiet a tlače",
+      "desc": "Automatická detekcia defektov, OCR/Barcode porovnanie a farebné odchýlky ΔE. Porovnanie s masterom, segmentácia pásu, reporty PDF."
+    },
+    "maint": {
+      "title": "Digitálna údržba strojov",
+      "desc": "QR karty strojov, evidovanie porúch, sklad ND, plánovanie zásahov a nákladov. Prehľad pre manažéra aj mechanika."
+    }
+  },
+  "tech": {
+    "title": "Technológie",
+    "lead": "Moderný FE/BE stack a computer vision. Otvorená architektúra pre integrácie."
+  },
+  "benefits": {
+    "title": "Prínosy pre tlač a výrobu",
+    "b1": { "t": "Menej nezhôd a odpadu", "d": "Včasná detekcia defektov a farebných odchýlok znižuje náklady a reklamácie." },
+    "b2": { "t": "Skrátené prestoje", "d": "Rýchla eskalácia poruchy, sklad ND a plán zásahov udržia linku v chode." },
+    "b3": { "t": "Dôveryhodné reporty", "d": "PDF výstupy s metrikami (OCR/ΔE/SSIM, barcode) a históriou zásahov." }
+  },
+  "demo": {
+    "title": "Rezervujte si konzultáciu",
+    "lead": "Live ukážka systému na vašich vzorkách alebo údajoch. Poradíme s hardwarem, procesom aj nasadením.",
+    "i1": "A3 skenery, tablety, kamery",
+    "i2": "Integrácia na existujúce MES/ERP",
+    "i3": "On-premise alebo cloud nasadenie"
+  },
+  "form": {
+    "name": "Meno a priezvisko",
+    "namePh": "Ján Novák",
+    "phone": "Telefón",
+    "note": "Poznámka",
+    "notePh": "Krátko popíšte potrebu…",
+    "submit": "Odoslať požiadavku",
+    "sending": "Odosielam…",
+    "ok": "Ďakujeme, správa bola odoslaná.",
+    "err": "Nepodarilo sa odoslať. Skúste znova alebo napíšte na info@gpcs.sk."
+  },
+  "footer": {
+    "sec": "Bezpečnosť & súkromie",
+    "int": "Integrácie & partnerstvá",
+    "docs": "Dokumentácia"
+  },
+  "contact": {
+    "title": "Kontakt",
+    "company": "GPCS s. r. o.",
+    "addr1": "Doležalova 3424/15C",
+    "addr2": "Bratislava – mestská časť Ružinov 821 04",
+    "icoLabel": "IČO",
+    "ico": "57 150 061",
+    "phoneLabel": "Telefón",
+    "phoneDisplay": "0950 889 523",
+    "phoneLink": "+421950889523",
+    "emailLabel": "E-mail",
+    "email": "info@gpcs.sk",
+    "webLabel": "Web",
+    "web": "gpcs.sk"
+  }
+}

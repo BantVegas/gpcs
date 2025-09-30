@@ -1,0 +1,123 @@
+{
+  "nav": {
+    "products": "Produkte",
+    "tech": "Technologien",
+    "benefits": "Vorteile",
+    "contact": "Kontakt",
+    "demo": "Beratung buchen"
+  },
+  "badge": "KI für Druck & Produktion",
+  "hero": {
+    "title": "Intelligente Druckprüfung & Instandhaltung",
+    "lead": "GPCS verbindet Computer Vision mit industriellen Workflows. Scancontroll erkennt Druckfehler in Echtzeit. MaintControl digitalisiert Wartung, Ersatzteillager und Benachrichtigungen. Weniger Ausschuss, weniger Stillstand, mehr Qualität.",
+    "ctaDemo": "Demo testen",
+    "ctaProducts": "Produkte ansehen"
+  },
+  "scan": {
+    "s1": "KI-Bildkontrolle von Etiketten (SSIM/ΔE)",
+    "s2": "Barcode-Validierung (EAN, Code128, DataMatrix)",
+    "s3": "Abgleich Master vs. Scan (SIFT/ORB, Deskew)",
+    "s4": "OCR-Textvergleich (Diakritik, Varianten)",
+    "s5": "Dichtemessung (optische Dichte, ΔD)",
+    "s6": "Pantone-Abweichungen (Zielbibliothek)"
+  },
+  "maint": {
+    "s1": "QR-Maschinenkarten, Störungen & Einsätze",
+    "s2": "Geplante Wartung (Kalender, PM)",
+    "s3": "Störungsvorhersagen (KI-Risiko, Empfehlungen)",
+    "s4": "Ersatzteile & Chargen, Kosten",
+    "s5": "Push/SMS-Benachrichtigungen",
+    "s6": "ACL, Audit-Trail, Exporte"
+  },
+  "cards": {
+    "ocr": {
+      "sub": "Text + Code = Übereinstimmung",
+      "i1": "Abgleich mit Master",
+      "i2": "Diakritik & Abstände",
+      "i3": "EAN/Code128-Validierung"
+    },
+    "ssim": {
+      "sub": "Farbe & Struktur",
+      "i1": "ΔE2000 Farbabweichung",
+      "i2": "SSIM Bildunterschiede",
+      "i3": "Deskew & Ausrichtung"
+    },
+    "maint": {
+      "title": "Wartung",
+      "sub": "Einsätze unter Kontrolle",
+      "i1": "QR-Maschinenkarten",
+      "i2": "Ersatzteillager",
+      "i3": "Push/SMS-Benachrichtigungen",
+      "i4": "Störungsvorhersagen"
+    },
+    "integr": {
+      "title": "Integrationen",
+      "sub": "FE+BE-Architektur",
+      "i1": "React + Tailwind",
+      "i2": "Spring Boot + FastAPI",
+      "i3": "Vercel / Railway / Render"
+    }
+  },
+  "products": {
+    "title": "Produkte",
+    "lead": "Zwei verknüpfte Systeme – für Druck und Instandhaltung.",
+    "scan": {
+      "title": "KI-Prüfung von Etiketten & Druck",
+      "desc": "Automatische Defekterkennung, OCR/Barcode-Vergleich und ΔE-Farbabweichungen. Master-Abgleich, Bahnsegmentierung, PDF-Reports."
+    },
+    "maint": {
+      "title": "Digitale Maschinenwartung",
+      "desc": "QR-Maschinenkarten, Störungserfassung, Ersatzteillager, Planung und Kosten. Überblick für Management und Techniker."
+    }
+  },
+  "tech": {
+    "title": "Technologien",
+    "lead": "Moderner FE/BE-Stack und Computer Vision. Offene Architektur für Integrationen."
+  },
+  "benefits": {
+    "title": "Vorteile",
+    "b1": { "t": "Weniger Ausschuss", "d": "Frühe Erkennung von Abweichungen reduziert Kosten und Reklamationen." },
+    "b2": { "t": "Kürzere Stillstände", "d": "Schnelle Eskalation, Lager und Planung halten die Linie am Laufen." },
+    "b3": { "t": "Verlässliche Reports", "d": "PDF-Ausgaben mit Metriken (OCR/ΔE/SSIM, Barcode) und Historie." }
+  },
+  "demo": {
+    "title": "Beratung reservieren",
+    "lead": "Live-Demo mit Ihren Mustern oder Daten. Beratung zu Hardware, Prozess und Deployment.",
+    "i1": "A3-Scanner, Tablets, Kameras",
+    "i2": "Integration in bestehendes MES/ERP",
+    "i3": "On-prem oder Cloud-Bereitstellung"
+  },
+  "form": {
+    "name": "Vollständiger Name",
+    "namePh": "Max Mustermann",
+    "phone": "Telefon",
+    "note": "Notiz",
+    "notePh": "Beschreiben Sie kurz Ihr Anliegen…",
+    "submit": "Anfrage senden",
+    "sending": "Senden…",
+    "ok": "Danke, Ihre Nachricht wurde gesendet.",
+    "err": "Senden fehlgeschlagen. Versuchen Sie es erneut oder schreiben Sie an info@gpcs.sk."
+  },
+  "footer": {
+    "sec": "Sicherheit & Datenschutz",
+    "int": "Integrationen & Partnerschaften",
+    "docs": "Dokumentation"
+  },
+  "contact": {
+    "title": "Kontakt",
+    "company": "GPCS s. r. o.",
+    "addr1": "Doležalova 3424/15C",
+    "addr2": "Bratislava – Ružinov 821 04",
+    "icoLabel": "Firmen-ID (IČO)",
+    "ico": "57 150 061",
+    "phoneLabel": "Telefon",
+    "phoneDisplay": "0950 889 523",
+    "phoneLink": "+421950889523",
+    "emailLabel": "E-Mail",
+    "email": "info@gpcs.sk",
+    "webLabel": "Web",
+    "web": "gpcs.sk"
+  }
+}
+
+

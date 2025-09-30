@@ -1,7 +1,10 @@
-import type { NextConfig } from "next";
+// next.config.ts
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+  turbopack: {
+    root: '.', // vynúť koreň na aktuálny projekt
+  },
+}
 
-export default nextConfig;
+export default nextConfig
