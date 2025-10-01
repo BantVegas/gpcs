@@ -1,4 +1,4 @@
-// app/[lang]/page.tsx
+// src/app/[locale]/page.tsx
 'use client';
 
 import { useMemo, useState, useCallback, type ReactNode } from "react";
@@ -53,8 +53,9 @@ function tString(dict: Messages, path: string): string {
 }
 // -----------------------------------
 
-export default function GpcsLanding({ params }: { params: { lang: Locale } }) {
-  const lang: Locale = (params.lang ?? "sk") as Locale;
+export default function GpcsLanding({ params }: { params: { locale: Locale } }) {
+  // FIX: use params.locale to match folder [locale]
+  const lang: Locale = (params?.locale ?? "sk") as Locale;
   const messages = MESSAGES[lang] ?? MESSAGES.sk;
 
   // memoized translator
@@ -439,6 +440,7 @@ function Benefit({ title, text }: { title: string; text: string }) {
     </div>
   );
 }
+
 
 
 
