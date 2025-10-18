@@ -54,7 +54,6 @@ function tString(dict: Messages, path: string): string {
 // -----------------------------------
 
 export default function GpcsLanding({ params }: { params: { locale: Locale } }) {
-  // FIX: use params.locale to match folder [locale]
   const lang: Locale = (params?.locale ?? "sk") as Locale;
   const messages = MESSAGES[lang] ?? MESSAGES.sk;
 
@@ -137,18 +136,13 @@ export default function GpcsLanding({ params }: { params: { locale: Locale } }) 
 
               {/* right: langswitcher + nav/cta + hamburger */}
               <div className="flex items-center gap-3">
-                {/* language switcher ALWAYS in header; shown on mobile here */}
                 <LangSwitcher className="md:hidden" />
-
-                {/* Desktop nav (no LangSwitcher inside) */}
                 <nav className="hidden md:flex items-center gap-6 text-sm text-slate-300">
                   <a href="#produkty" className="hover:text-white">{t("nav.products")}</a>
+                  <a href="#novinka" className="hover:text-white">Novinka</a>
                   <a href="#prinosy" className="hover:text-white">{t("nav.benefits")}</a>
                   <a href="#kontakt" className="hover:text-white">{t("nav.contact")}</a>
-
-                  {/* language switcher for desktop, still in header bar */}
                   <LangSwitcher className="ml-2" />
-
                   <a
                     href="#demo"
                     className="inline-flex items-center gap-2 rounded-xl bg-white text-slate-900 px-4 py-2 font-medium hover:opacity-90"
@@ -156,8 +150,6 @@ export default function GpcsLanding({ params }: { params: { locale: Locale } }) 
                     {t("nav.demo")} <ArrowRight className="size-4" />
                   </a>
                 </nav>
-
-                {/* Mobile hamburger */}
                 <button
                   type="button"
                   aria-label="Menu"
@@ -172,7 +164,7 @@ export default function GpcsLanding({ params }: { params: { locale: Locale } }) 
             </div>
           </div>
 
-          {/* Mobile menu (LANGSWITCHER REMOVED FROM HERE) */}
+          {/* Mobile menu */}
           <m.nav
             id="mobile-menu"
             initial={false}
@@ -184,6 +176,9 @@ export default function GpcsLanding({ params }: { params: { locale: Locale } }) 
               <div className="grid gap-1">
                 <a onClick={closeMenu} href="#produkty" className="block rounded-lg px-3 py-3 hover:bg-white/5">
                   {t("nav.products")}
+                </a>
+                <a onClick={closeMenu} href="#novinka" className="block rounded-lg px-3 py-3 hover:bg-white/5">
+                  Novinka
                 </a>
                 <a onClick={closeMenu} href="#prinosy" className="block rounded-lg px-3 py-3 hover:bg-white/5">
                   {t("nav.benefits")}
@@ -209,9 +204,6 @@ export default function GpcsLanding({ params }: { params: { locale: Locale } }) 
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid items-center gap-8 py-12 sm:py-16 md:grid-cols-2">
               <m.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={animFast}>
-                <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-xs text-cyan-200">
-                  <Cpu className="size-4" /> {t("badge")}
-                </p>
                 <h1 className="text-balance text-3xl sm:text-5xl font-bold tracking-tight">
                   {t("hero.title")}
                 </h1>
@@ -270,15 +262,121 @@ export default function GpcsLanding({ params }: { params: { locale: Locale } }) 
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight">{t("products.title")}</h2>
             <p className="mt-2 text-slate-300 max-w-3xl">{t("products.lead")}</p>
-            <div className="mt-8 grid gap-6 md:grid-cols-2">
-              <ProductCard badge="Scancontroll" title={t("products.scan.title")} desc={t("products.scan.desc")} features={featuresScan} />
-              <ProductCard badge="MaintControl" title={t("products.maint.title")} desc={t("products.maint.desc")} features={featuresMaint} />
+
+            <div className="mt-8 grid gap-10 md:grid-cols-2">
+              {/* --- Scancontroll --- */}
+              <div>
+                <ProductCard
+                  badge="Scancontroll"
+                  title={t("products.scan.title")}
+                  desc={t("products.scan.desc")}
+                  features={featuresScan}
+                />
+              </div>
+
+              {/* --- MaintControl (odkazy na videá) --- */}
+              <div>
+                <ProductCard
+                  badge="MaintControl"
+                  title={t("products.maint.title")}
+                  desc={t("products.maint.desc")}
+                  features={featuresMaint}
+                />
+                <div className="mt-4 flex flex-wrap items-center gap-3">
+                  <m.a
+                    href="https://youtu.be/MupquW0d2Gk"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 rounded-xl border border-cyan-400/40 bg-cyan-400/10 px-4 py-2 text-sm text-white shadow-[0_0_16px_rgba(34,211,238,0.25)] hover:bg-cyan-400/20 hover:border-cyan-300/60 focus:outline-none focus:ring-2 focus:ring-cyan-400/60"
+                    aria-label="Mobilná aplikácia MaintControl – video (YouTube)"
+                    initial={{ opacity: 0.95, scale: 1 }}
+                    animate={{ opacity: [1, 0.78, 1], scale: [1, 1.02, 1] }}
+                    transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    Mobilná aplikácia MaintControl – video
+                  </m.a>
+                  <m.a
+                    href="https://youtu.be/SiQ-EJXkXh0"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 rounded-xl border border-cyan-400/40 bg-cyan-400/10 px-4 py-2 text-sm text-white shadow-[0_0_16px_rgba(34,211,238,0.25)] hover:bg-cyan-400/20 hover:border-cyan-300/60 focus:outline-none focus:ring-2 focus:ring-cyan-400/60"
+                    aria-label="Manažérske KPI MaintControl – video (YouTube)"
+                    initial={{ opacity: 0.95, scale: 1 }}
+                    animate={{ opacity: [1, 0.78, 1], scale: [1, 1.02, 1] }}
+                    transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut", delay: 0.35 }}
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    Manažérske KPI MaintControl – video
+                  </m.a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* NOVINKA: KIOSK */}
+        <section id="novinka" className="scroll-mt-24 py-12 sm:py-16 border-y border-white/10 bg-white/5">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col gap-6 md:grid md:grid-cols-2 md:items-start">
+              <div>
+                <span className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-xs text-cyan-200">
+                  Novinka
+                </span>
+                <h2 className="mt-3 text-2xl sm:text-3xl font-semibold tracking-tight">KIOSK – online aj offline</h2>
+                <p className="mt-2 text-slate-300">
+                  Univerzálny KIOSK pre **široké využitie** – funguje spoľahlivo aj **bez internetu** a po pripojení sa
+                  bezpečne synchronizuje. Ideálny do polygrafie, výroby aj vstupných priestorov budov.
+                </p>
+
+                <div className="mt-4 space-y-2 text-slate-300">
+                  <h3 className="font-semibold text-white">Využitie v polygrafii</h3>
+                  <ul className="list-disc pl-5 space-y-1">
+                    <li>Samoobslužné zadanie zákazky, nahratie PDF a schválenie náhľadov.</li>
+                    <li>Kontrola stavu zákazky, odber hotových tlačí, prípadne reklamácie s fotkami.</li>
+                    <li>QR/čiarový kód pre rýchle priradenie k zákazke, napojenie na workflow/ERP.</li>
+                  </ul>
+                  <h3 className="mt-3 font-semibold text-white">Vchodové a nebytové priestory</h3>
+                  <ul className="list-disc pl-5 space-y-1">
+                    <li>Informačná tabuľa: oznamy správy budovy, návštevný režim, hlásenie porúch.</li>
+                    <li>Rezervácie priestorov a služieb, prehľady a kontakty – dostupné aj offline.</li>
+                    <li>Bezpečný „kiosk mode“, vzdialená správa, automatické aktualizácie.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div>
+                <div className="aspect-video rounded-2xl overflow-hidden border border-white/10 shadow-lg">
+                  <iframe
+                    className="w-full h-full"
+                    src="https://www.youtube.com/embed/WHG9FbVTPNk"
+                    title="KIOSK – online aj offline"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    loading="lazy"
+                  />
+                </div>
+                <p className="mt-3 text-sm text-slate-300">
+                  Preferuješ YouTube priamo?{" "}
+                  <a
+                    href="https://youtu.be/WHG9FbVTPNk"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline underline-offset-4 hover:text-white"
+                  >
+                    Otvor video v novej karte
+                  </a>
+                  .
+                </p>
+              </div>
             </div>
           </div>
         </section>
 
         {/* PRÍNOSY */}
-        <section id="prinosy" className="scroll-mt-24 py-12 sm:py-16 border-y border-white/10 bg-white/5">
+        <section id="prinosy" className="scroll-mt-24 py-12 sm:py-16">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight">{t("benefits.title")}</h2>
             <div className="mt-8 grid gap-6 md:grid-cols-3">
@@ -440,6 +538,9 @@ function Benefit({ title, text }: { title: string; text: string }) {
     </div>
   );
 }
+
+
+
 
 
 
