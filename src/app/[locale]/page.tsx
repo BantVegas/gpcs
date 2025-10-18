@@ -6,7 +6,6 @@ import {
   useState,
   useCallback,
   useEffect,
-  use as usePromise, // ← dôležité: rozbalenie params Promise v client komponente
   type ReactNode,
 } from "react";
 import Image from "next/image";
@@ -14,7 +13,6 @@ import { LazyMotion, domAnimation, m, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
   CheckCircle2,
-  Cpu,
   Layers,
   ShieldCheck,
   Fuel,
@@ -41,9 +39,8 @@ import de from "@/i18n/dictionaries/de.json";
 type Locale = "sk" | "en" | "de";
 type Messages = typeof sk;
 type Feature = { icon: ReactNode; text: string };
-type Params = { locale: Locale };
 
-// ---- small typed i18n helpers ----
+// ---- i18n helpers ----
 const MESSAGES: Record<Locale, Messages> = { sk, en, de };
 
 function getFromDict(dict: Messages, path: string): unknown {
@@ -61,16 +58,8 @@ function tString(dict: Messages, path: string): string {
 }
 // -----------------------------------
 
-export default function GpcsLanding(
-  props: { params: Params | Promise<Params> } // ← prijmeme aj Promise
-) {
-  // React 19: v client komponentoch je params Promise → rozbalíme cez React.use()
-  const resolved =
-    typeof (props.params as any)?.then === "function"
-      ? usePromise(props.params as Promise<Params>)
-      : (props.params as Params);
-
-  const lang: Locale = (resolved?.locale ?? "sk") as Locale;
+export default function GpcsLanding({ params }: { params: { locale: Locale } }) {
+  const lang: Locale = (params?.locale ?? "sk") as Locale;
   const messages = MESSAGES[lang] ?? MESSAGES.sk;
 
   // memoized translator
@@ -276,7 +265,7 @@ export default function GpcsLanding(
                 <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-slate-300">
                   <div>
                     <p className="font-semibold text-white">Scancontroll</p>
-                    <p className="text-slate-400">AI, OCR • barcode • ΔE • SSIM</p>
+                    <p className="text-slate-400">OCR • barcode • ΔE • SSIM</p>
                   </div>
                   <div>
                     <p className="font-semibold text-white">MaintControl</p>
@@ -482,7 +471,7 @@ export default function GpcsLanding(
                       <input name="email" type="email" required className="mt-1 w-full rounded-xl border border-white/15 bg-slate-900/60 px-3 py-2 text-base outline-none focus:ring-2 focus:ring-cyan-500" placeholder="you@company.com" autoComplete="email" inputMode="email" />
                     </div>
                     <div>
-                      <label className="block text-sm text-slate-300">{t("form.phone")}</label>
+                      <label className="block text sm text-slate-300">{t("form.phone")}</label>
                       <input name="phone" type="tel" className="mt-1 w-full rounded-xl border border-white/15 bg-slate-900/60 px-3 py-2 text-base outline-none focus:ring-2 focus:ring-cyan-500" placeholder="+421 9xx xxx xxx" autoComplete="tel" inputMode="tel" />
                     </div>
                   </div>
@@ -602,6 +591,7 @@ function Benefit({ title, text }: { title: string; text: string }) {
     </div>
   );
 }
+
 
 
 
