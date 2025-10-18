@@ -4,14 +4,16 @@
     "tech": "Technológie",
     "benefits": "Prínosy",
     "contact": "Kontakt",
-    "demo": "Rezervovať konzultáciu"
+    "demo": "Rezervovať konzultáciu",
+    "news": "Novinka"
   },
   "badge": "AI pre tlač a výrobu",
   "hero": {
     "title": "Inteligentná kontrola tlače & údržba výroby",
     "lead": "GPCS spája počítačové videnie a priemyselné workflow. Scancontroll odhaľuje tlačové defekty v reálnom čase. MaintControl digitalizuje údržbu strojov, sklad náhradných dielov a notifikácie. Menej odpadu, menej prestojov, viac kvality.",
     "ctaDemo": "Vyskúšať demo",
-    "ctaProducts": "Pozrieť produkty"
+    "ctaProducts": "Pozrieť produkty",
+    "motto": "Od tlačiara pre tlačiarov"
   },
   "scan": {
     "s1": "AI vizuálna kontrola etikiet (SSIM/ΔE)",
@@ -117,5 +119,20 @@
     "email": "info@gpcs.sk",
     "webLabel": "Web",
     "web": "gpcs.sk"
+  },
+  "news": {
+    "kiosk": {
+      "title": "KIOSK – online aj offline",
+      "p1": "Univerzálny KIOSK pre široké využitie – funguje spoľahlivo aj bez internetu a po pripojení sa bezpečne synchronizuje. Ideálny do polygrafie, výroby aj vstupných priestorov budov.",
+      "pgTitle": "Využitie v polygrafii",
+      "pg1": "Samoobslužné zadanie zákazky, nahratie PDF a schválenie náhľadov.",
+      "pg2": "Kontrola stavu zákazky, odber hotových tlačí, reklamácie s fotkami.",
+      "pg3": "QR/čiarový kód pre priradenie k zákazke, napojenie na workflow/ERP.",
+      "entryTitle": "Vchodové a nebytové priestory",
+      "en1": "Informačná tabuľa: oznamy správy budovy, návštevný režim, hlásenie porúch.",
+      "en2": "Rezervácie priestorov a služieb, prehľady a dôležité kontakty — dostupné aj offline.",
+      "en3": "Bezpečný „kiosk mode“, vzdialená správa a automatické aktualizácie."
+    }
   }
 }
+

@@ -4,14 +4,16 @@
     "tech": "Technologien",
     "benefits": "Vorteile",
     "contact": "Kontakt",
-    "demo": "Beratung buchen"
+    "demo": "Beratung buchen",
+    "news": "News"
   },
   "badge": "KI für Druck & Produktion",
   "hero": {
     "title": "Intelligente Druckprüfung & Instandhaltung",
     "lead": "GPCS verbindet Computer Vision mit industriellen Workflows. Scancontroll erkennt Druckfehler in Echtzeit. MaintControl digitalisiert Wartung, Ersatzteillager und Benachrichtigungen. Weniger Ausschuss, weniger Stillstand, mehr Qualität.",
     "ctaDemo": "Demo testen",
-    "ctaProducts": "Produkte ansehen"
+    "ctaProducts": "Produkte ansehen",
+    "motto": "Von Druckern für Drucker"
   },
   "scan": {
     "s1": "KI-Bildkontrolle von Etiketten (SSIM/ΔE)",
@@ -117,7 +119,22 @@
     "email": "info@gpcs.sk",
     "webLabel": "Web",
     "web": "gpcs.sk"
+  },
+  "news": {
+    "kiosk": {
+      "title": "KIOSK – online & offline",
+      "p1": "Universeller KIOSK für vielfältige Einsätze – funktioniert zuverlässig auch ohne Internet und synchronisiert sicher nach Verbindung. Ideal für Druck, Produktion und Eingangsbereiche von Gebäuden.",
+      "pgTitle": "Einsatz in der Druckindustrie",
+      "pg1": "Selbstbedienung-Auftragserfassung, PDF-Upload und Proof-Freigabe.",
+      "pg2": "Auftragsstatus, Abholung fertiger Drucke, Reklamationen mit Fotos.",
+      "pg3": "QR/Barcode zur schnellen Zuordnung, Anbindung an Workflow/ERP.",
+      "entryTitle": "Eingänge & Gewerbeflächen",
+      "en1": "Infotafel: Hausmitteilungen, Besuchermodus, Störungsmeldung.",
+      "en2": "Raum- und Service-Reservierungen, Übersichten und Kontakte — auch offline verfügbar.",
+      "en3": "Sicherer Kiosk-Modus, Remote-Administration und automatische Updates."
+    }
   }
 }
+
 
 

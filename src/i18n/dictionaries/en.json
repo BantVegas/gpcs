@@ -4,14 +4,16 @@
     "tech": "Technologies",
     "benefits": "Benefits",
     "contact": "Contact",
-    "demo": "Book a demo"
+    "demo": "Book a demo",
+    "news": "News"
   },
   "badge": "AI for print & manufacturing",
   "hero": {
     "title": "Intelligent print inspection & maintenance",
     "lead": "GPCS combines computer vision with industrial workflows. Scancontroll detects print defects in real time. MaintControl digitalizes maintenance, spare parts and notifications. Less waste, less downtime, more quality.",
     "ctaDemo": "Try demo",
-    "ctaProducts": "See products"
+    "ctaProducts": "See products",
+    "motto": "By printers, for printers"
   },
   "scan": {
     "s1": "AI visual label inspection (SSIM/ΔE)",
@@ -117,6 +119,21 @@
     "email": "info@gpcs.sk",
     "webLabel": "Web",
     "web": "gpcs.sk"
+  },
+  "news": {
+    "kiosk": {
+      "title": "KIOSK – online & offline",
+      "p1": "Universal KIOSK for broad use — works reliably even without internet and safely synchronizes once connected. Ideal for print, manufacturing and building entrances.",
+      "pgTitle": "Use cases in print",
+      "pg1": "Self-service job submission, PDF upload and proof approval.",
+      "pg2": "Job status tracking, pickup of finished prints, complaints with photos.",
+      "pg3": "QR/barcode to link to a job, integration with workflow/ERP.",
+      "entryTitle": "Entrances & non-residential areas",
+      "en1": "Information board: building notices, visitor mode, fault reporting.",
+      "en2": "Room/service reservations, dashboards and key contacts — available offline.",
+      "en3": "Secure kiosk mode, remote management and automatic updates."
+    }
   }
 }
+
 
