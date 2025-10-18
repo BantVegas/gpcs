@@ -6,7 +6,7 @@ import {
   useState,
   useCallback,
   useEffect,
-  use as usePromise, // ← dôležité: rozbalenie params Promise v client komponente
+  use as usePromise, // ← rozbalenie params Promise v client komponente (React 19)
   type ReactNode,
 } from "react";
 import Image from "next/image";
@@ -14,7 +14,6 @@ import { LazyMotion, domAnimation, m, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
   CheckCircle2,
-  Cpu,
   Layers,
   ShieldCheck,
   Fuel,
