@@ -1,7 +1,14 @@
 // src/app/[locale]/page.tsx
 'use client';
 
-import { useMemo, useState, useCallback, type ReactNode } from "react";
+import {
+  useMemo,
+  useState,
+  useCallback,
+  useEffect,
+  use as usePromise, // ← dôležité: rozbalenie params Promise v client komponente
+  type ReactNode,
+} from "react";
 import Image from "next/image";
 import { LazyMotion, domAnimation, m, useReducedMotion } from "framer-motion";
 import {
@@ -34,6 +41,7 @@ import de from "@/i18n/dictionaries/de.json";
 type Locale = "sk" | "en" | "de";
 type Messages = typeof sk;
 type Feature = { icon: ReactNode; text: string };
+type Params = { locale: Locale };
 
 // ---- small typed i18n helpers ----
 const MESSAGES: Record<Locale, Messages> = { sk, en, de };
@@ -53,8 +61,16 @@ function tString(dict: Messages, path: string): string {
 }
 // -----------------------------------
 
-export default function GpcsLanding({ params }: { params: { locale: Locale } }) {
-  const lang: Locale = (params?.locale ?? "sk") as Locale;
+export default function GpcsLanding(
+  props: { params: Params | Promise<Params> } // ← prijmeme aj Promise
+) {
+  // React 19: v client komponentoch je params Promise → rozbalíme cez React.use()
+  const resolved =
+    typeof (props.params as any)?.then === "function"
+      ? usePromise(props.params as Promise<Params>)
+      : (props.params as Params);
+
+  const lang: Locale = (resolved?.locale ?? "sk") as Locale;
   const messages = MESSAGES[lang] ?? MESSAGES.sk;
 
   // memoized translator
@@ -67,6 +83,13 @@ export default function GpcsLanding({ params }: { params: { locale: Locale } }) 
 
   const animFast = { duration: prefersReducedMotion ? 0 : 0.5, ease: "easeOut" as const };
   const animSlow = { duration: prefersReducedMotion ? 0 : 0.7, delay: prefersReducedMotion ? 0 : 0.1, ease: "easeOut" as const };
+
+  // Motto zvýraznenie iba prvé sekundy po načítaní
+  const [mottoAlive, setMottoAlive] = useState(true);
+  useEffect(() => {
+    const id = setTimeout(() => setMottoAlive(false), 8000);
+    return () => clearTimeout(id);
+  }, []);
 
   const featuresScan = useMemo<Feature[]>(
     () => [
@@ -139,7 +162,7 @@ export default function GpcsLanding({ params }: { params: { locale: Locale } }) 
                 <LangSwitcher className="md:hidden" />
                 <nav className="hidden md:flex items-center gap-6 text-sm text-slate-300">
                   <a href="#produkty" className="hover:text-white">{t("nav.products")}</a>
-                  <a href="#novinka" className="hover:text-white">Novinka</a>
+                  <a href="#novinka" className="hover:text-white">{t("nav.news")}</a>
                   <a href="#prinosy" className="hover:text-white">{t("nav.benefits")}</a>
                   <a href="#kontakt" className="hover:text-white">{t("nav.contact")}</a>
                   <LangSwitcher className="ml-2" />
@@ -178,7 +201,7 @@ export default function GpcsLanding({ params }: { params: { locale: Locale } }) 
                   {t("nav.products")}
                 </a>
                 <a onClick={closeMenu} href="#novinka" className="block rounded-lg px-3 py-3 hover:bg-white/5">
-                  Novinka
+                  {t("nav.news")}
                 </a>
                 <a onClick={closeMenu} href="#prinosy" className="block rounded-lg px-3 py-3 hover:bg-white/5">
                   {t("nav.benefits")}
@@ -200,6 +223,7 @@ export default function GpcsLanding({ params }: { params: { locale: Locale } }) 
 
         {/* Hero */}
         <section className="relative overflow-hidden scroll-mt-24">
+          {/* mäkké pozadie */}
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(60rem_30rem_at_50%_-10%,rgba(14,165,233,0.25),transparent)]" />
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid items-center gap-8 py-12 sm:py-16 md:grid-cols-2">
@@ -207,6 +231,31 @@ export default function GpcsLanding({ params }: { params: { locale: Locale } }) 
                 <h1 className="text-balance text-3xl sm:text-5xl font-bold tracking-tight">
                   {t("hero.title")}
                 </h1>
+
+                {/* Veľké motto – dočasné pulzovanie */}
+                <div className="relative mt-3">
+                  <div className="pointer-events-none absolute -inset-x-6 -inset-y-2 -z-10 rounded-2xl bg-cyan-500/15 blur-2xl" />
+                  <m.p
+                    className="inline-flex items-center gap-2 text-2xl sm:text-4xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-200 to-white drop-shadow-[0_0_14px_rgba(34,211,238,0.35)]"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={
+                      prefersReducedMotion || !mottoAlive
+                        ? { opacity: 1, y: 0 }
+                        : { opacity: [1, 0.7, 1], y: [0, -2, 0] }
+                    }
+                    transition={
+                      prefersReducedMotion || !mottoAlive
+                        ? animFast
+                        : { duration: 1.1, repeat: Infinity, ease: "easeInOut" }
+                    }
+                    aria-label={t("hero.motto")}
+                  >
+                    <Sparkles className="size-6" aria-hidden="true" />
+                    {t("hero.motto")}
+                    <Sparkles className="size-6" aria-hidden="true" />
+                  </m.p>
+                </div>
+
                 <p className="mt-4 text-pretty text-base sm:text-lg text-slate-300">
                   {t("hero.lead")}
                 </p>
@@ -272,6 +321,24 @@ export default function GpcsLanding({ params }: { params: { locale: Locale } }) 
                   desc={t("products.scan.desc")}
                   features={featuresScan}
                 />
+
+                {/* Odkaz na video – i18n */}
+                <div className="mt-4 flex flex-wrap items-center gap-3">
+                  <m.a
+                    href="https://youtu.be/x982OFN7b1c"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 rounded-xl border border-cyan-400/40 bg-cyan-400/10 px-4 py-2 text-sm text-white shadow-[0_0_16px_rgba(34,211,238,0.25)] hover:bg-cyan-400/20 hover:border-cyan-300/60 focus:outline-none focus:ring-2 focus:ring-cyan-400/60"
+                    aria-label={t("links.scanVideo")}
+                    initial={{ opacity: 0.95, scale: 1 }}
+                    animate={{ opacity: [1, 0.78, 1], scale: [1, 1.02, 1] }}
+                    transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    {t("links.scanVideo")}
+                  </m.a>
+                </div>
               </div>
 
               {/* --- MaintControl (odkazy na videá) --- */}
@@ -288,28 +355,28 @@ export default function GpcsLanding({ params }: { params: { locale: Locale } }) 
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center gap-2 rounded-xl border border-cyan-400/40 bg-cyan-400/10 px-4 py-2 text-sm text-white shadow-[0_0_16px_rgba(34,211,238,0.25)] hover:bg-cyan-400/20 hover:border-cyan-300/60 focus:outline-none focus:ring-2 focus:ring-cyan-400/60"
-                    aria-label="Mobilná aplikácia MaintControl – video (YouTube)"
+                    aria-label={t("links.maintMobile")}
                     initial={{ opacity: 0.95, scale: 1 }}
                     animate={{ opacity: [1, 0.78, 1], scale: [1, 1.02, 1] }}
                     transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    Mobilná aplikácia MaintControl – video
+                    {t("links.maintMobile")}
                   </m.a>
                   <m.a
                     href="https://youtu.be/SiQ-EJXkXh0"
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center gap-2 rounded-xl border border-cyan-400/40 bg-cyan-400/10 px-4 py-2 text-sm text-white shadow-[0_0_16px_rgba(34,211,238,0.25)] hover:bg-cyan-400/20 hover:border-cyan-300/60 focus:outline-none focus:ring-2 focus:ring-cyan-400/60"
-                    aria-label="Manažérske KPI MaintControl – video (YouTube)"
+                    aria-label={t("links.maintKpi")}
                     initial={{ opacity: 0.95, scale: 1 }}
                     animate={{ opacity: [1, 0.78, 1], scale: [1, 1.02, 1] }}
                     transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut", delay: 0.35 }}
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    Manažérske KPI MaintControl – video
+                    {t("links.maintKpi")}
                   </m.a>
                 </div>
               </div>
@@ -323,26 +390,23 @@ export default function GpcsLanding({ params }: { params: { locale: Locale } }) 
             <div className="flex flex-col gap-6 md:grid md:grid-cols-2 md:items-start">
               <div>
                 <span className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-xs text-cyan-200">
-                  Novinka
+                  {t("nav.news")}
                 </span>
-                <h2 className="mt-3 text-2xl sm:text-3xl font-semibold tracking-tight">KIOSK – online aj offline</h2>
-                <p className="mt-2 text-slate-300">
-                  Univerzálny KIOSK pre **široké využitie** – funguje spoľahlivo aj **bez internetu** a po pripojení sa
-                  bezpečne synchronizuje. Ideálny do polygrafie, výroby aj vstupných priestorov budov.
-                </p>
+                <h2 className="mt-3 text-2xl sm:text-3xl font-semibold tracking-tight">{t("news.kiosk.title")}</h2>
+                <p className="mt-2 text-slate-300">{t("news.kiosk.p1")}</p>
 
                 <div className="mt-4 space-y-2 text-slate-300">
-                  <h3 className="font-semibold text-white">Využitie v polygrafii</h3>
+                  <h3 className="font-semibold text-white">{t("news.kiosk.pgTitle")}</h3>
                   <ul className="list-disc pl-5 space-y-1">
-                    <li>Samoobslužné zadanie zákazky, nahratie PDF a schválenie náhľadov.</li>
-                    <li>Kontrola stavu zákazky, odber hotových tlačí, prípadne reklamácie s fotkami.</li>
-                    <li>QR/čiarový kód pre rýchle priradenie k zákazke, napojenie na workflow/ERP.</li>
+                    <li>{t("news.kiosk.pg1")}</li>
+                    <li>{t("news.kiosk.pg2")}</li>
+                    <li>{t("news.kiosk.pg3")}</li>
                   </ul>
-                  <h3 className="mt-3 font-semibold text-white">Vchodové a nebytové priestory</h3>
+                  <h3 className="mt-3 font-semibold text-white">{t("news.kiosk.entryTitle")}</h3>
                   <ul className="list-disc pl-5 space-y-1">
-                    <li>Informačná tabuľa: oznamy správy budovy, návštevný režim, hlásenie porúch.</li>
-                    <li>Rezervácie priestorov a služieb, prehľady a kontakty – dostupné aj offline.</li>
-                    <li>Bezpečný „kiosk mode“, vzdialená správa, automatické aktualizácie.</li>
+                    <li>{t("news.kiosk.en1")}</li>
+                    <li>{t("news.kiosk.en2")}</li>
+                    <li>{t("news.kiosk.en3")}</li>
                   </ul>
                 </div>
               </div>
@@ -352,21 +416,21 @@ export default function GpcsLanding({ params }: { params: { locale: Locale } }) 
                   <iframe
                     className="w-full h-full"
                     src="https://www.youtube.com/embed/WHG9FbVTPNk"
-                    title="KIOSK – online aj offline"
+                    title={t("news.kiosk.title")}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     loading="lazy"
                   />
                 </div>
                 <p className="mt-3 text-sm text-slate-300">
-                  Preferuješ YouTube priamo?{" "}
+                  {t("news.kiosk.ytPrompt")}{" "}
                   <a
                     href="https://youtu.be/WHG9FbVTPNk"
                     target="_blank"
                     rel="noreferrer"
                     className="underline underline-offset-4 hover:text-white"
                   >
-                    Otvor video v novej karte
+                    {t("news.kiosk.ytOpen")}
                   </a>
                   .
                 </p>
@@ -538,6 +602,9 @@ function Benefit({ title, text }: { title: string; text: string }) {
     </div>
   );
 }
+
+
+
 
 
 

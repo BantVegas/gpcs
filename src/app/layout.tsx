@@ -6,12 +6,16 @@ export const metadata: Metadata = {
   description: "Global Printing & Control Solutions",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  // root layout MUSÍ obsahovať <html> a <body>
-  // lang tu nechaj neutrálne – presmerovanie rieši middleware
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  // Root layout musí byť jediný, ktorý renderuje <html> a <body>.
+  // Nechávame neutrálne lang; locale rieši [locale] segment.
   return (
-    <html lang="x-default">
-      <body>{children}</body>
+    <html lang="x-default" suppressHydrationWarning>
+      <body suppressHydrationWarning>{children}</body>
     </html>
   );
 }
