@@ -120,6 +120,11 @@
     "webLabel": "Web",
     "web": "gpcs.sk"
   },
+  "links": {
+    "scanVideo": "Scancontroll – Video",
+    "maintMobile": "MaintControl Mobile-App – Video",
+    "maintKpi": "MaintControl KPIs – Video"
+  },
   "news": {
     "kiosk": {
       "title": "KIOSK – online & offline",
@@ -131,10 +136,13 @@
       "entryTitle": "Eingänge & Gewerbeflächen",
       "en1": "Infotafel: Hausmitteilungen, Besuchermodus, Störungsmeldung.",
       "en2": "Raum- und Service-Reservierungen, Übersichten und Kontakte — auch offline verfügbar.",
-      "en3": "Sicherer Kiosk-Modus, Remote-Administration und automatische Updates."
+      "en3": "Sicherer Kiosk-Modus, Remote-Administration und automatische Updates.",
+      "ytPrompt": "Bevorzugen Sie YouTube direkt?",
+      "ytOpen": "Video in neuem Tab öffnen"
     }
   }
 }
+
 
 
 

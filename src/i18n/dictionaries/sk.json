@@ -120,6 +120,11 @@
     "webLabel": "Web",
     "web": "gpcs.sk"
   },
+  "links": {
+    "scanVideo": "Scancontroll – video",
+    "maintMobile": "Mobilná aplikácia MaintControl – video",
+    "maintKpi": "Manažérske KPI MaintControl – video"
+  },
   "news": {
     "kiosk": {
       "title": "KIOSK – online aj offline",
@@ -131,7 +136,9 @@
       "entryTitle": "Vchodové a nebytové priestory",
       "en1": "Informačná tabuľa: oznamy správy budovy, návštevný režim, hlásenie porúch.",
       "en2": "Rezervácie priestorov a služieb, prehľady a dôležité kontakty — dostupné aj offline.",
-      "en3": "Bezpečný „kiosk mode“, vzdialená správa a automatické aktualizácie."
+      "en3": "Bezpečný „kiosk mode“, vzdialená správa a automatické aktualizácie.",
+      "ytPrompt": "Preferuješ YouTube priamo?",
+      "ytOpen": "Otvoriť video v novej karte"
     }
   }
 }

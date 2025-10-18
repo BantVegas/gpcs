@@ -120,6 +120,11 @@
     "webLabel": "Web",
     "web": "gpcs.sk"
   },
+  "links": {
+    "scanVideo": "Scancontroll – video",
+    "maintMobile": "MaintControl mobile app – video",
+    "maintKpi": "MaintControl KPIs – video"
+  },
   "news": {
     "kiosk": {
       "title": "KIOSK – online & offline",
@@ -131,7 +136,9 @@
       "entryTitle": "Entrances & non-residential areas",
       "en1": "Information board: building notices, visitor mode, fault reporting.",
       "en2": "Room/service reservations, dashboards and key contacts — available offline.",
-      "en3": "Secure kiosk mode, remote management and automatic updates."
+      "en3": "Secure kiosk mode, remote management and automatic updates.",
+      "ytPrompt": "Prefer YouTube directly?",
+      "ytOpen": "Open video in a new tab"
     }
   }
 }
