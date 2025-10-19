@@ -5,7 +5,8 @@
     "benefits": "Prínosy",
     "contact": "Kontakt",
     "demo": "Rezervovať konzultáciu",
-    "news": "Novinka"
+    "news": "Novinka",
+    "pricing": "Cenník"
   },
   "badge": "AI pre tlač a výrobu",
   "hero": {
@@ -13,7 +14,8 @@
     "lead": "GPCS spája počítačové videnie a priemyselné workflow. Scancontroll odhaľuje tlačové defekty v reálnom čase. MaintControl digitalizuje údržbu strojov, sklad náhradných dielov a notifikácie. Menej odpadu, menej prestojov, viac kvality.",
     "ctaDemo": "Vyskúšať demo",
     "ctaProducts": "Pozrieť produkty",
-    "motto": "Od tlačiara pre tlačiarov"
+    "motto": "Od tlačiara pre tlačiarov",
+    "digital": "Robíme kompletnú digitalizáciu tlačiarne: triedenie zákaziek, generovanie čiarových/QR kódov a úplný tracking so správami pre klientov – od prepressu až po doručenie."
   },
   "scan": {
     "s1": "AI vizuálna kontrola etikiet (SSIM/ΔE)",
@@ -50,7 +52,14 @@
       "i1": "QR karty strojov",
       "i2": "Sklad náhradných dielov",
       "i3": "Push/SMS notifikácie",
-      "i4": "Predikcie porúch"
+      "i4": "Predikcie porúch",
+      "items": [
+        "QR karty strojov + história zásahov",
+        "Sklad ND prepojený na stroje & zásahy",
+        "Checklisty a fotodokumentácia po zásahu",
+        "Push/SMS notifikácie (manuálne aj auto)",
+        "MTTR/MTBF prehľady a trendy"
+      ]
     },
     "integr": {
       "title": "Integrácie",
@@ -58,6 +67,16 @@
       "i1": "React + Tailwind",
       "i2": "Spring Boot + FastAPI",
       "i3": "Vercel / Railway / Render"
+    },
+    "print": {
+      "title": "Digitalizácia tlačiarní",
+      "sub": "Workflow & zákazky pod kontrolou",
+      "items": [
+        "Príjem a triedenie zákaziek (web/API/e-mail parser)",
+        "Generovanie čiarových/QR kódov a štítkov",
+        "Tracking výroby s notifikáciami pre klientov",
+        "Klientsky portál & schvaľovanie nátlačkov"
+      ]
     }
   },
   "products": {
@@ -140,6 +159,103 @@
       "ytPrompt": "Preferuješ YouTube priamo?",
       "ytOpen": "Otvoriť video v novej karte"
     }
+  },
+  "pricing": {
+    "title": "Cenník",
+    "subtitle": "Vyberte balík, ktorý sedí vašej tlačiarni",
+    "lead": "Ceny sú orientačné. Finálnu ponuku pripravíme podľa počtu strojov, používateľov a integrácií.",
+    "tiers": {
+      "starter": {
+        "name": "Starter",
+        "badge": "Pre malé a pilotné nasadenia",
+        "price": "od 190 € / mes.",
+        "features": [
+          "Do 5 užívateľov",
+          "Základný modul Údržba (QR karty, zásahy, checklisty)",
+          "Notifikácie e-mail",
+          "Základné KPI (MTTR/MTBF)",
+          "Hosting GPCS Cloud"
+        ],
+        "cta": "Vyskúšať demo"
+      },
+      "pro": {
+        "name": "Pro",
+        "badge": "Najobľúbenejší pre SMB tlačiarne",
+        "price": "od 490 € / mes.",
+        "features": [
+          "Neobmedzený počet užívateľov",
+          "Údržba + Sklad ND + plánovanie preventívok",
+          "Notifikácie e-mail / SMS / push",
+          "KPI + reporty + exporty",
+          "Integrácia 1× ERP/MIS alebo e-shop"
+        ],
+        "cta": "Požiadať o ponuku",
+        "featured": "Najobľúbenejší"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "badge": "Pre viac prevádzok / skupiny",
+        "price": "Cenu naceníme",
+        "features": [
+          "Multi-site, SSO, audit trail",
+          "Vlastné SLA / schvaľovacie workflow",
+          "Integrácie (ERP/MIS, kuriéri, BI) bez limitu",
+          "Privátny cloud alebo on-prem",
+          "Dohľad 24/7 a VIP podpora"
+        ],
+        "cta": "Dohodnúť konzultáciu"
+      }
+    },
+    "addons": {
+      "title": "Add-ons (doplnky)",
+      "subtitle": "Modulárne rozšírenia k ľubovoľnému balíku.",
+      "items": [
+        "OCR + Barcode kontrola",
+        "ΔE & SSIM farebná/štruktúrna kontrola",
+        "Klientsky portál objednávok + eProof",
+        "Track & Trace + expedícia (Packeta/GLS/DPD/UPS)",
+        "IoT zber dát zo strojov, alarmy, senzory",
+        "AI predikcie porúch a sklzov"
+      ]
+    },
+    "faq": {
+      "q1": "Je možné on-prem nasadenie?",
+      "a1": "Áno. Pre Enterprise poskytujeme on-prem aj privátny cloud, vrátane SSO a auditu.",
+      "q2": "Ako účtujete integrácie?",
+      "a2": "V balíku Pro je zahrnutá 1 integrácia. Ďalšie integrácie naceníme podľa API a rozsahu.",
+      "q3": "Je v cene hosting a zálohy?",
+      "a3": "Áno, pri GPCS Cloud. On-prem si spravuje zákazník (vieme dodať odporúčania).",
+      "q4": "Viete upraviť moduly na mieru?",
+      "a4": "Áno, máme rýchly vývoj. Menšie zmeny v cene implementácie, väčšie na dohodu."
+    },
+    "cta": {
+      "prompt": "Neviete, ktorý balík zvoliť?",
+      "button": "Poradiť a naceniť"
+    }
+  },
+  "digital": {
+    "quick": {
+      "title": "Digitalizácia – rýchly prehľad",
+      "sub": "Kompletné pokrytie od objednávky po doručenie",
+      "items": [
+        "Klientský portál objednávok (stav, faktúry, reklamácie)",
+        "eProof / online schvaľovanie náhľadov s anotáciami",
+        "Automatický preflight a opravy PDF + report",
+        "APS plánovanie výroby podľa termínov a strojov",
+        "MES-lite terminály: štart/stop, odvádzka, checklisty",
+        "OEE/TPM dashboardy, dôvody prestojov, trendy",
+        "Track & Trace + expedícia, kuriéri, POD archivácia",
+        "Sklad materiálu/dielov: FIFO, šarže, inventúry mobilom",
+        "Cenotvorba & kalkulácie (šablóny, normy, marža)",
+        "IoT zber dát zo strojov, alarmy, senzory",
+        "AI predikcie porúch a sklzov, odhad lead-time",
+        "RMA/Reklamačný modul s 8D reportom",
+        "Integrácie: ERP/MIS, e-shop, účtovníctvo, BI",
+        "Archivácia a verzovanie tlačových dát s právami"
+      ]
+    }
   }
 }
+
+
 
