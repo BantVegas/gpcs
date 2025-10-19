@@ -5,7 +5,8 @@
     "benefits": "Vorteile",
     "contact": "Kontakt",
     "demo": "Beratung buchen",
-    "news": "News"
+    "news": "News",
+    "pricing": "Preise"
   },
   "badge": "KI für Druck & Produktion",
   "hero": {
@@ -13,7 +14,8 @@
     "lead": "GPCS verbindet Computer Vision mit industriellen Workflows. Scancontroll erkennt Druckfehler in Echtzeit. MaintControl digitalisiert Wartung, Ersatzteillager und Benachrichtigungen. Weniger Ausschuss, weniger Stillstand, mehr Qualität.",
     "ctaDemo": "Demo testen",
     "ctaProducts": "Produkte ansehen",
-    "motto": "Von Druckern für Drucker"
+    "motto": "Von Druckern für Drucker",
+    "digital": "Wir digitalisieren Ihre Druckerei vollständig: Auftragssortierung, Generierung von Barcode/QR-Codes und durchgängiges Tracking mit Kundenbenachrichtigungen – vom Prepress bis zur Auslieferung."
   },
   "scan": {
     "s1": "KI-Bildkontrolle von Etiketten (SSIM/ΔE)",
@@ -50,7 +52,14 @@
       "i1": "QR-Maschinenkarten",
       "i2": "Ersatzteillager",
       "i3": "Push/SMS-Benachrichtigungen",
-      "i4": "Störungsvorhersagen"
+      "i4": "Störungsvorhersagen",
+      "items": [
+        "QR-Maschinenkarten + Einsatzhistorie",
+        "Ersatzteillager verknüpft mit Maschinen & Einsätzen",
+        "Checklisten & Fotodokumentation nach dem Einsatz",
+        "Push/SMS-Benachrichtigungen (manuell & automatisch)",
+        "MTTR/MTBF Übersichten & Trends"
+      ]
     },
     "integr": {
       "title": "Integrationen",
@@ -58,6 +67,16 @@
       "i1": "React + Tailwind",
       "i2": "Spring Boot + FastAPI",
       "i3": "Vercel / Railway / Render"
+    },
+    "print": {
+      "title": "Digitalisierung der Druckerei",
+      "sub": "Workflow & Aufträge unter Kontrolle",
+      "items": [
+        "Auftragseingang & Sortierung (Web/API/E-Mail-Parser)",
+        "Generierung von Barcode/QR-Codes & Labels",
+        "Fertigungs-Tracking mit Kundenbenachrichtigungen",
+        "Kundenportal & Online-Freigaben von Proofs"
+      ]
     }
   },
   "products": {
@@ -140,8 +159,107 @@
       "ytPrompt": "Bevorzugen Sie YouTube direkt?",
       "ytOpen": "Video in neuem Tab öffnen"
     }
+  },
+  "pricing": {
+    "title": "Preise",
+    "subtitle": "Wählen Sie das passende Paket für Ihre Druckerei",
+    "lead": "Preise sind Richtwerte. Das finale Angebot hängt von Maschinenzahl, Nutzern und Integrationen ab.",
+    "tiers": {
+      "starter": {
+        "name": "Starter",
+        "badge": "Für kleine Teams & Pilotprojekte",
+        "price": "ab 190 € / Monat",
+        "features": [
+          "Bis zu 5 Nutzer",
+          "Kernmodul Wartung (QR-Karten, Einsätze, Checklisten)",
+          "E-Mail-Benachrichtigungen",
+          "Basis-KPIs (MTTR/MTBF)",
+          "GPCS Cloud Hosting"
+        ],
+        "cta": "Demo testen"
+      },
+      "pro": {
+        "name": "Pro",
+        "badge": "Am beliebtesten bei KMU-Druckereien",
+        "price": "ab 490 € / Monat",
+        "features": [
+          "Unbegrenzte Nutzer",
+          "Wartung + Ersatzteile + Präventivplanung",
+          "E-Mail / SMS / Push-Benachrichtigungen",
+          "KPIs + Reports + Exporte",
+          "1× Integration (ERP/MIS oder E-Shop)"
+        ],
+        "cta": "Angebot anfordern",
+        "featured": "Am beliebtesten"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "badge": "Für mehrere Standorte / Gruppen",
+        "price": "Individuelle Preisgestaltung",
+        "features": [
+          "Multi-Site, SSO, Audit-Trail",
+          "Eigene SLAs / Freigabe-Workflows",
+          "Integrationen (ERP/MIS, Carrier, BI) ohne Limit",
+          "Private Cloud oder On-Prem",
+          "24/7 Monitoring & VIP-Support"
+        ],
+        "cta": "Beratung vereinbaren"
+      }
+    },
+    "addons": {
+      "title": "Add-ons",
+      "subtitle": "Modulare Erweiterungen für jedes Paket.",
+      "items": [
+        "OCR + Barcode-Prüfung",
+        "ΔE & SSIM Farb-/Strukturprüfung",
+        "Kundenportal für Aufträge + eProof",
+        "Track & Trace + Versand (Packeta/GLS/DPD/UPS)",
+        "IoT-Datenerfassung von Maschinen, Alarme, Sensoren",
+        "KI-Prognosen zu Ausfällen und Planabweichungen"
+      ]
+    },
+    "faq": {
+      "q1": "Ist eine On-Prem-Bereitstellung möglich?",
+      "a1": "Ja. Für Enterprise bieten wir On-Prem oder Private Cloud inkl. SSO und Audit an.",
+      "q2": "Wie werden Integrationen bepreist?",
+      "a2": "Im Pro-Paket ist 1 Integration enthalten. Weitere Integrationen werden je nach API und Umfang kalkuliert.",
+      "q3": "Sind Hosting und Backups enthalten?",
+      "a3": "Ja, bei GPCS Cloud. On-Prem wird kundenseitig betrieben (wir beraten gerne).",
+      "q4": "Können Module angepasst werden?",
+      "a4": "Ja, wir entwickeln schnell. Kleine Anpassungen im Implementierungsumfang, größere nach Vereinbarung."
+    },
+    "cta": {
+      "prompt": "Unsicher, welches Paket passt?",
+      "button": "Beratung & Preisinformation"
+    }
+  },
+  "digital": {
+    "quick": {
+      "title": "Digitalisierung – schneller Überblick",
+      "sub": "Komplette Abdeckung von Auftrag bis Lieferung",
+      "items": [
+        "Kundenportal für Aufträge (Status, Rechnungen, Reklamationen)",
+        "eProof / Online-Freigaben von Andrucken mit Anmerkungen",
+        "Automatischer Preflight & PDF-Korrekturen + Report",
+        "APS-Produktionsplanung nach Terminen und Maschinen",
+        "MES-lite Terminals: Start/Stop, Rückmeldung, Checklisten",
+        "OEE/TPM Dashboards, Stillstandsgründe, Trends",
+        "Track & Trace + Versand, Carrier, POD-Archivierung",
+        "Material-/Ersatzteillager: FIFO, Chargen, mobile Inventuren",
+        "Angebots- & Kalkulationsmodul (Vorlagen, Normen, Marge)",
+        "IoT-Datenerfassung von Maschinen, Alarme, Sensoren",
+        "KI-Prognosen von Ausfällen & Terminabweichungen, Lead-Time-Schätzung",
+        "RMA/Reklamationsmodul mit 8D-Report",
+        "Integrationen: ERP/MIS, E-Shop, Buchhaltung, BI",
+        "Archivierung & Versionierung von Druckdaten mit Rechten"
+      ]
+    }
   }
 }
+
+
+
+
 
 
 

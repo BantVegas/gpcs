@@ -51,19 +51,60 @@ function getFromDict(dict: Messages, path: string): unknown {
     return undefined;
   }, dict as unknown);
 }
-
-function tString(dict: Messages, path: string): string {
-  const v = getFromDict(dict, path);
-  return typeof v === "string" ? v : path;
-}
 // -----------------------------------
+
+// Fallbacky pre prípad, že nové kľúče ešte nie sú v prekladoch
+const FALLBACK_DIGI_TITLE = "Digitalizácia – rýchly prehľad";
+const FALLBACK_DIGI_SUB = "Kompletné pokrytie od objednávky po doručenie";
+const FALLBACK_DIGI_ITEMS = [
+  "Klientský portál objednávok (stav, faktúry, reklamácie)",
+  "eProof / online schvaľovanie náhľadov s anotáciami",
+  "Automatický preflight a opravy PDF + report",
+  "APS plánovanie výroby podľa termínov a strojov",
+  "MES-lite terminály: štart/stop, odvádzka, checklisty",
+  "OEE/TPM dashboardy, dôvody prestojov, trendy",
+  "Track & Trace + expedícia, kuriéri, POD archivácia",
+  "Sklad materiálu/dielov: FIFO, šarže, inventúry mobilom",
+  "Cenotvorba & kalkulácie (šablóny, normy, marža)",
+  "IoT zber dát zo strojov, alarmy, senzory",
+  "AI predikcie porúch a sklzov, odhad lead-time",
+  "RMA/Reklamačný modul s 8D reportom",
+  "Integrácie: ERP/MIS, e-shop, účtovníctvo, BI",
+  "Archivácia a verzovanie tlačových dát s právami",
+];
+
+const FALLBACK_MAINT_ITEMS = [
+  "QR karty strojov + história zásahov",
+  "Sklad ND prepojený na stroje & zásahy",
+  "Checklisty a fotodokumentácia po zásahu",
+  "Push/SMS notifikácie (manuálne aj auto)",
+  "MTTR/MTBF prehľady a trendy",
+];
+
+const FALLBACK_PRINT_TITLE = "Digitalizácia tlačiarní";
+const FALLBACK_PRINT_SUB = "Workflow & zákazky pod kontrolou";
+const FALLBACK_PRINT_ITEMS = [
+  "Príjem a triedenie zákaziek (web/API/e-mail parser)",
+  "Generovanie čiarových/QR kódov a štítkov",
+  "Tracking výroby s notifikáciami pre klientov",
+  "Klientsky portál & schvaľovanie nátlačkov",
+];
 
 export default function GpcsLanding({ params }: { params: { locale: Locale } }) {
   const lang: Locale = (params?.locale ?? "sk") as Locale;
   const messages = MESSAGES[lang] ?? MESSAGES.sk;
 
-  // memoized translator
-  const t = useCallback((path: string) => tString(messages, path), [messages]);
+  // t() teraz podporuje aj fallback
+  const t = useCallback((path: string, fallback?: string) => {
+    const v = getFromDict(messages, path);
+    return typeof v === "string" ? v : (fallback ?? path);
+  }, [messages]);
+
+  // tList() – načítanie zoznamu (array) s fallbackom
+  const tList = useCallback((path: string, fallback: string[]) => {
+    const v = getFromDict(messages, path);
+    return Array.isArray(v) ? (v as unknown[]).map(String) : fallback;
+  }, [messages]);
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -71,12 +112,9 @@ export default function GpcsLanding({ params }: { params: { locale: Locale } }) 
   const closeMenu = useCallback(() => setMobileOpen(false), []);
 
   const animFast = { duration: prefersReducedMotion ? 0 : 0.5, ease: "easeOut" as const };
-  const animSlow = { duration: prefersReducedMotion ? 0 : 0.7, delay: prefersReducedMotion ? 0 : 0.1, ease: "easeOut" as const };
 
-  // Motto zvýraznenie iba prvé sekundy po načítaní
-  const [mottoAlive, setMottoAlive] = useState(true);
   useEffect(() => {
-    const id = setTimeout(() => setMottoAlive(false), 8000);
+    const id = setTimeout(() => {}, 8000);
     return () => clearTimeout(id);
   }, []);
 
@@ -104,6 +142,14 @@ export default function GpcsLanding({ params }: { params: { locale: Locale } }) 
     [t]
   );
 
+  // Digitalizácia – názov, podtitul a položky cez i18n
+  const digiTitle = t("digital.quick.title", FALLBACK_DIGI_TITLE);
+  const digiSub = t("digital.quick.sub", FALLBACK_DIGI_SUB);
+  const digiItems = useMemo<string[]>(
+    () => tList("digital.quick.items", FALLBACK_DIGI_ITEMS),
+    [tList]
+  );
+
   async function handleContactSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (status === "loading") return;
@@ -124,6 +170,20 @@ export default function GpcsLanding({ params }: { params: { locale: Locale } }) 
     }
   }
 
+  // výrazne blikajúca položka „Novinka“
+  const blinkNav = prefersReducedMotion
+    ? undefined
+    : { opacity: [1, 0.5, 1], transition: { duration: 1.2, repeat: Infinity, ease: "easeInOut" as const } };
+
+  // SILNÉ blikanie motta (vpravo hore)
+  const blinkMotto = prefersReducedMotion
+    ? undefined
+    : {
+        opacity: [1, 0.3, 1],
+        scale: [1, 1.05, 1],
+        transition: { duration: 0.9, repeat: Infinity, ease: "easeInOut" as const },
+      };
+
   return (
     <LazyMotion features={domAnimation}>
       <div className="min-h-svh bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-100">
@@ -132,35 +192,22 @@ export default function GpcsLanding({ params }: { params: { locale: Locale } }) 
           <div className="pt-[env(safe-area-inset-top)]" />
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex h-16 items-center justify-between">
-              {/* left: logo */}
               <div className="flex items-center gap-2">
-                <Image
-                  src="/gpcs.png"
-                  alt="GPCS logo"
-                  width={32}
-                  height={32}
-                  priority
-                  className="rounded-xl ring-1 ring-white/20 object-cover"
-                />
+                <Image src="/gpcs.png" alt="GPCS logo" width={32} height={32} priority className="rounded-xl ring-1 ring-white/20 object-cover" />
                 <span className="text-base sm:text-lg font-semibold tracking-tight">GPCS s.r.o.</span>
                 <span className="hidden sm:inline text-sm text-slate-400">— Global Printing & Control Solutions</span>
               </div>
 
-              {/* right: langswitcher + nav/cta + hamburger */}
               <div className="flex items-center gap-3">
                 <LangSwitcher className="md:hidden" />
                 <nav className="hidden md:flex items-center gap-6 text-sm text-slate-300">
                   <a href="#produkty" className="hover:text-white">{t("nav.products")}</a>
-                  <a href="#novinka" className="hover:text-white">{t("nav.news")}</a>
+                  <m.a href="#novinka" className="hover:text-white" animate={blinkNav}>{t("nav.news")}</m.a>
                   <a href="#prinosy" className="hover:text-white">{t("nav.benefits")}</a>
+                  {/* Cenník -> samostatná stránka */}
+                  <a href={`/${lang}/cennik`} className="hover:text-white">{t("nav.pricing")}</a>
                   <a href="#kontakt" className="hover:text-white">{t("nav.contact")}</a>
                   <LangSwitcher className="ml-2" />
-                  <a
-                    href="#demo"
-                    className="inline-flex items-center gap-2 rounded-xl bg-white text-slate-900 px-4 py-2 font-medium hover:opacity-90"
-                  >
-                    {t("nav.demo")} <ArrowRight className="size-4" />
-                  </a>
                 </nav>
                 <button
                   type="button"
@@ -186,111 +233,88 @@ export default function GpcsLanding({ params }: { params: { locale: Locale } }) 
           >
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3">
               <div className="grid gap-1">
-                <a onClick={closeMenu} href="#produkty" className="block rounded-lg px-3 py-3 hover:bg-white/5">
-                  {t("nav.products")}
-                </a>
-                <a onClick={closeMenu} href="#novinka" className="block rounded-lg px-3 py-3 hover:bg-white/5">
-                  {t("nav.news")}
-                </a>
-                <a onClick={closeMenu} href="#prinosy" className="block rounded-lg px-3 py-3 hover:bg-white/5">
-                  {t("nav.benefits")}
-                </a>
-                <a onClick={closeMenu} href="#kontakt" className="block rounded-lg px-3 py-3 hover:bg-white/5">
-                  {t("nav.contact")}
-                </a>
-                <a
-                  onClick={closeMenu}
-                  href="#demo"
-                  className="mt-2 block rounded-xl bg-white px-4 py-3 text-center font-medium text-slate-900"
-                >
-                  {t("nav.demo")}
-                </a>
+                <a onClick={closeMenu} href="#produkty" className="block rounded-lg px-3 py-3 hover:bg-white/5">{t("nav.products")}</a>
+                <m.a onClick={closeMenu} href="#novinka" className="block rounded-lg px-3 py-3 hover:bg-white/5" animate={blinkNav}>{t("nav.news")}</m.a>
+                <a onClick={closeMenu} href="#prinosy" className="block rounded-lg px-3 py-3 hover:bg-white/5">{t("nav.benefits")}</a>
+                {/* Cenník -> route */}
+                <a onClick={closeMenu} href={`/${lang}/cennik`} className="block rounded-lg px-3 py-3 hover:bg-white/5">{t("nav.pricing")}</a>
+                <a onClick={closeMenu} href="#kontakt" className="block rounded-lg px-3 py-3 hover:bg-white/5">{t("nav.contact")}</a>
               </div>
             </div>
           </m.nav>
         </header>
 
-        {/* Hero */}
+        {/* HERO */}
         <section className="relative overflow-hidden scroll-mt-24">
-          {/* mäkké pozadie */}
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(60rem_30rem_at_50%_-10%,rgba(14,165,233,0.25),transparent)]" />
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="grid items-center gap-8 py-12 sm:py-16 md:grid-cols-2">
-              <m.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={animFast}>
-                <h1 className="text-balance text-3xl sm:text-5xl font-bold tracking-tight">
-                  {t("hero.title")}
-                </h1>
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+            {/* TOP TEXT row */}
+            <div className="grid items-start gap-3 sm:gap-4 md:grid-cols-2">
+              <h1 className="text-3xl sm:text-5xl font-bold tracking-tight">
+                {t("hero.title")}
+              </h1>
 
-                {/* Veľké motto – dočasné pulzovanie */}
-                <div className="relative mt-3">
-                  <div className="pointer-events-none absolute -inset-x-6 -inset-y-2 -z-10 rounded-2xl bg-cyan-500/15 blur-2xl" />
-                  <m.p
-                    className="inline-flex items-center gap-2 text-2xl sm:text-4xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-200 to-white drop-shadow-[0_0_14px_rgba(34,211,238,0.35)]"
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={
-                      prefersReducedMotion || !mottoAlive
-                        ? { opacity: 1, y: 0 }
-                        : { opacity: [1, 0.7, 1], y: [0, -2, 0] }
-                    }
-                    transition={
-                      prefersReducedMotion || !mottoAlive
-                        ? animFast
-                        : { duration: 1.1, repeat: Infinity, ease: "easeInOut" }
-                    }
-                    aria-label={t("hero.motto")}
-                  >
-                    <Sparkles className="size-6" aria-hidden="true" />
-                    {t("hero.motto")}
-                    <Sparkles className="size-6" aria-hidden="true" />
-                  </m.p>
-                </div>
+              <m.p
+                className="text-right text-3xl sm:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 via-white to-cyan-200 drop-shadow-[0_0_20px_rgba(59,130,246,0.55)]"
+                animate={blinkMotto}
+                aria-label={t("hero.motto")}
+              >
+                {t("hero.motto")}
+              </m.p>
+            </div>
 
-                <p className="mt-4 text-pretty text-base sm:text-lg text-slate-300">
-                  {t("hero.lead")}
-                </p>
-                <div className="mt-6 flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3">
-                  <a
-                    href="#demo"
-                    className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-cyan-500 px-5 py-3 font-medium text-slate-950 hover:bg-cyan-400"
-                  >
-                    {t("hero.ctaDemo")} <ArrowRight className="size-4" />
-                  </a>
-                  <a
-                    href="#produkty"
-                    className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-white/15 px-5 py-3 font-medium text-white/90 hover:bg-white/5"
-                  >
-                    {t("hero.ctaProducts")}
-                  </a>
-                </div>
-                <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-slate-300">
-                  <div>
-                    <p className="font-semibold text-white">Scancontroll</p>
-                    <p className="text-slate-400">OCR • barcode • ΔE • SSIM</p>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-white">MaintControl</p>
-                    <p className="text-slate-400">
-                      {t("maint.s1").split(",")[0]} • {t("maint.s4").split(",")[0]} • {t("maint.s5").split(",")[0]}
-                    </p>
-                  </div>
-                </div>
-              </m.div>
+            {/* supporting lead + digitalizácia text */}
+            <div className="mt-4 md:max-w-5xl">
+              <p className="text-pretty text-base sm:text-lg text-slate-300">
+                {t("hero.lead")}
+              </p>
+              <p className="mt-3 text-pretty text-base sm:text-lg font-semibold text-slate-100">
+                {t("hero.digital")}
+              </p>
+            </div>
 
-              <m.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={animSlow}>
-                <div className="relative">
-                  <div className="absolute -inset-6 -z-10 rounded-3xl bg-gradient-to-tr from-cyan-500/20 to-blue-500/20 blur-2xl" />
-                  <div className="rounded-3xl border border-white/10 bg-white/5 p-2 shadow-2xl">
-                    <div className="rounded-2xl bg-slate-950/60 p-4 sm:p-6">
-                      <div className="grid gap-4 sm:grid-cols-2">
-                        <Card title="OCR + Barcode" subtitle={t("cards.ocr.sub")} items={[t("cards.ocr.i1"), t("cards.ocr.i2"), t("cards.ocr.i3")]} />
-                        <Card title="ΔE & SSIM" subtitle={t("cards.ssim.sub")} items={[t("cards.ssim.i1"), t("cards.ssim.i2"), t("cards.ssim.i3")]} />
-                        <Card title={t("cards.maint.title")} subtitle={t("cards.maint.sub")} items={[t("cards.maint.i1"), t("cards.maint.i2"), t("cards.maint.i3"), t("cards.maint.i4")]} />
-                        <Card title={t("cards.integr.title")} subtitle={t("cards.integr.sub")} items={[t("cards.integr.i1"), t("cards.integr.i2"), t("cards.integr.i3")]} />
-                      </div>
+            {/* BOTTOM GRID */}
+            <div className="mt-8 grid gap-6 md:grid-cols-2">
+              {/* LEFT: Digitalizácia – karta */}
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-2 shadow-2xl">
+                <div className="rounded-2xl bg-slate-950/60 p-4 sm:p-6">
+                  <div className="rounded-xl border border-white/10 bg-slate-900/50 p-4 sm:p-5">
+                    <div className="flex items-center justify-between">
+                      <p className="font-medium text-white">{digiTitle}</p>
+                      <Fuel className="size-4 text-cyan-400" />
                     </div>
+                    <p className="mt-1 text-sm text-slate-400">{digiSub}</p>
+                    <ul className="mt-3 grid gap-2 text-sm text-slate-300 sm:grid-cols-2">
+                      {digiItems.map((it) => (
+                        <li key={it} className="flex items-start gap-2">
+                          <CheckCircle2 className="mt-0.5 size-4 text-cyan-400" />
+                          <span>{it}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
-              </m.div>
+              </div>
+
+              {/* RIGHT: mriežka 2x2 kariet */}
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-2 shadow-2xl">
+                <div className="rounded-2xl bg-slate-950/60 p-4 sm:p-6">
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <Card title="OCR + Barcode" subtitle={t("cards.ocr.sub")} items={[t("cards.ocr.i1"), t("cards.ocr.i2"), t("cards.ocr.i3")]} />
+                    <Card title="ΔE & SSIM" subtitle={t("cards.ssim.sub")} items={[t("cards.ssim.i1"), t("cards.ssim.i2"), t("cards.ssim.i3")]} />
+                    <Card
+                      title={t("cards.maint.title")}
+                      subtitle={t("cards.maint.sub")}
+                      items={tList("cards.maint.items", FALLBACK_MAINT_ITEMS)}
+                    />
+                    <Card
+                      title={t("cards.print.title", FALLBACK_PRINT_TITLE)}
+                      subtitle={t("cards.print.sub", FALLBACK_PRINT_SUB)}
+                      items={tList("cards.print.items", FALLBACK_PRINT_ITEMS)}
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -302,23 +326,14 @@ export default function GpcsLanding({ params }: { params: { locale: Locale } }) 
             <p className="mt-2 text-slate-300 max-w-3xl">{t("products.lead")}</p>
 
             <div className="mt-8 grid gap-10 md:grid-cols-2">
-              {/* --- Scancontroll --- */}
               <div>
-                <ProductCard
-                  badge="Scancontroll"
-                  title={t("products.scan.title")}
-                  desc={t("products.scan.desc")}
-                  features={featuresScan}
-                />
-
-                {/* Odkaz na video – i18n */}
-                <div className="mt-4 flex flex-wrap items-center gap-3">
+                <ProductCard badge="Scancontroll" title={t("products.scan.title")} desc={t("products.scan.desc")} features={featuresScan} />
+                <div className="mt-4">
                   <m.a
                     href="https://youtu.be/x982OFN7b1c"
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center gap-2 rounded-xl border border-cyan-400/40 bg-cyan-400/10 px-4 py-2 text-sm text-white shadow-[0_0_16px_rgba(34,211,238,0.25)] hover:bg-cyan-400/20 hover:border-cyan-300/60 focus:outline-none focus:ring-2 focus:ring-cyan-400/60"
-                    aria-label={t("links.scanVideo")}
                     initial={{ opacity: 0.95, scale: 1 }}
                     animate={{ opacity: [1, 0.78, 1], scale: [1, 1.02, 1] }}
                     transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
@@ -330,21 +345,14 @@ export default function GpcsLanding({ params }: { params: { locale: Locale } }) 
                 </div>
               </div>
 
-              {/* --- MaintControl (odkazy na videá) --- */}
               <div>
-                <ProductCard
-                  badge="MaintControl"
-                  title={t("products.maint.title")}
-                  desc={t("products.maint.desc")}
-                  features={featuresMaint}
-                />
+                <ProductCard badge="MaintControl" title={t("products.maint.title")} desc={t("products.maint.desc")} features={featuresMaint} />
                 <div className="mt-4 flex flex-wrap items-center gap-3">
                   <m.a
                     href="https://youtu.be/MupquW0d2Gk"
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center gap-2 rounded-xl border border-cyan-400/40 bg-cyan-400/10 px-4 py-2 text-sm text-white shadow-[0_0_16px_rgba(34,211,238,0.25)] hover:bg-cyan-400/20 hover:border-cyan-300/60 focus:outline-none focus:ring-2 focus:ring-cyan-400/60"
-                    aria-label={t("links.maintMobile")}
                     initial={{ opacity: 0.95, scale: 1 }}
                     animate={{ opacity: [1, 0.78, 1], scale: [1, 1.02, 1] }}
                     transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
@@ -358,7 +366,6 @@ export default function GpcsLanding({ params }: { params: { locale: Locale } }) 
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center gap-2 rounded-xl border border-cyan-400/40 bg-cyan-400/10 px-4 py-2 text-sm text-white shadow-[0_0_16px_rgba(34,211,238,0.25)] hover:bg-cyan-400/20 hover:border-cyan-300/60 focus:outline-none focus:ring-2 focus:ring-cyan-400/60"
-                    aria-label={t("links.maintKpi")}
                     initial={{ opacity: 0.95, scale: 1 }}
                     animate={{ opacity: [1, 0.78, 1], scale: [1, 1.02, 1] }}
                     transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut", delay: 0.35 }}
@@ -413,12 +420,7 @@ export default function GpcsLanding({ params }: { params: { locale: Locale } }) 
                 </div>
                 <p className="mt-3 text-sm text-slate-300">
                   {t("news.kiosk.ytPrompt")}{" "}
-                  <a
-                    href="https://youtu.be/WHG9FbVTPNk"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="underline underline-offset-4 hover:text-white"
-                  >
+                  <a href="https://youtu.be/WHG9FbVTPNk" target="_blank" rel="noreferrer" className="underline underline-offset-4 hover:text-white">
                     {t("news.kiosk.ytOpen")}
                   </a>
                   .
@@ -458,9 +460,7 @@ export default function GpcsLanding({ params }: { params: { locale: Locale } }) 
               </div>
               <div className="rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-6">
                 <form className="grid gap-3" onSubmit={handleContactSubmit}>
-                  {/* honeypot */}
                   <input type="text" name="honey" tabIndex={-1} autoComplete="off" className="hidden" />
-
                   <div>
                     <label className="block text-sm text-slate-300">{t("form.name")}</label>
                     <input name="name" required className="mt-1 w-full rounded-xl border border-white/15 bg-slate-900/60 px-3 py-2 text-base outline-none focus:ring-2 focus:ring-cyan-500" placeholder={t("form.namePh")} autoComplete="name" />
@@ -591,6 +591,13 @@ function Benefit({ title, text }: { title: string; text: string }) {
     </div>
   );
 }
+
+
+
+
+
+
+
 
 
 

@@ -5,7 +5,8 @@
     "benefits": "Benefits",
     "contact": "Contact",
     "demo": "Book a demo",
-    "news": "News"
+    "news": "News",
+    "pricing": "Pricing"
   },
   "badge": "AI for print & manufacturing",
   "hero": {
@@ -13,7 +14,8 @@
     "lead": "GPCS combines computer vision with industrial workflows. Scancontroll detects print defects in real time. MaintControl digitalizes maintenance, spare parts and notifications. Less waste, less downtime, more quality.",
     "ctaDemo": "Try demo",
     "ctaProducts": "See products",
-    "motto": "By printers, for printers"
+    "motto": "By printers, for printers",
+    "digital": "We deliver complete printshop digitalization: order sorting, barcode/QR generation, and end-to-end tracking with client notifications — from prepress to delivery."
   },
   "scan": {
     "s1": "AI visual label inspection (SSIM/ΔE)",
@@ -50,7 +52,14 @@
       "i1": "QR machine cards",
       "i2": "Spare parts store",
       "i3": "Push/SMS notifications",
-      "i4": "Failure predictions"
+      "i4": "Failure predictions",
+      "items": [
+        "QR machine cards + intervention history",
+        "Spare-parts store linked to machines & interventions",
+        "Checklists & photo documentation after intervention",
+        "Push/SMS notifications (manual & automatic)",
+        "MTTR/MTBF overviews & trends"
+      ]
     },
     "integr": {
       "title": "Integrations",
@@ -58,6 +67,16 @@
       "i1": "React + Tailwind",
       "i2": "Spring Boot + FastAPI",
       "i3": "Vercel / Railway / Render"
+    },
+    "print": {
+      "title": "Printshop digitalization",
+      "sub": "Workflow & jobs under control",
+      "items": [
+        "Job intake & sorting (web/API/e-mail parser)",
+        "Barcode/QR code & label generation",
+        "Production tracking with client notifications",
+        "Client portal & online proof approvals"
+      ]
     }
   },
   "products": {
@@ -140,7 +159,107 @@
       "ytPrompt": "Prefer YouTube directly?",
       "ytOpen": "Open video in a new tab"
     }
+  },
+  "pricing": {
+    "title": "Pricing",
+    "subtitle": "Choose a plan that fits your print shop",
+    "lead": "Prices are indicative. The final offer depends on number of machines, users and integrations.",
+    "tiers": {
+      "starter": {
+        "name": "Starter",
+        "badge": "For small teams & pilots",
+        "price": "from €190 / mo",
+        "features": [
+          "Up to 5 users",
+          "Core Maintenance module (QR cards, interventions, checklists)",
+          "E-mail notifications",
+          "Basic KPIs (MTTR/MTBF)",
+          "GPCS Cloud hosting"
+        ],
+        "cta": "Try demo"
+      },
+      "pro": {
+        "name": "Pro",
+        "badge": "Most popular for SMB print shops",
+        "price": "from €490 / mo",
+        "features": [
+          "Unlimited users",
+          "Maintenance + Spare parts + preventive scheduling",
+          "E-mail / SMS / push notifications",
+          "KPIs + reports + exports",
+          "1× integration (ERP/MIS or e-shop)"
+        ],
+        "cta": "Request a quote",
+        "featured": "Most popular"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "badge": "For multi-site / groups",
+        "price": "Custom pricing",
+        "features": [
+          "Multi-site, SSO, audit trail",
+          "Custom SLAs / approval workflows",
+          "Integrations (ERP/MIS, carriers, BI) without limits",
+          "Private cloud or on-prem",
+          "24/7 monitoring and VIP support"
+        ],
+        "cta": "Schedule a consultation"
+      }
+    },
+    "addons": {
+      "title": "Add-ons",
+      "subtitle": "Modular extensions to any plan.",
+      "items": [
+        "OCR + Barcode inspection",
+        "ΔE & SSIM colour/structure inspection",
+        "Customer order portal + eProof",
+        "Track & Trace + shipping (Packeta/GLS/DPD/UPS)",
+        "IoT data capture from machines, alarms, sensors",
+        "AI predictions of failures and schedule slippage"
+      ]
+    },
+    "faq": {
+      "q1": "Is on-prem deployment possible?",
+      "a1": "Yes. For Enterprise we provide on-prem or private cloud, including SSO and audit.",
+      "q2": "How do you price integrations?",
+      "a2": "Pro includes 1 integration. Additional integrations are priced based on API and scope.",
+      "q3": "Is hosting and backup included?",
+      "a3": "Yes, with GPCS Cloud. On-prem is managed by the customer (we provide guidance).",
+      "q4": "Can you customize modules?",
+      "a4": "Yes, we iterate fast. Minor changes as part of implementation, larger ones on agreement."
+    },
+    "cta": {
+      "prompt": "Not sure which plan to pick?",
+      "button": "Get advice & pricing"
+    }
+  },
+  "digital": {
+    "quick": {
+      "title": "Printshop digitization — quick overview",
+      "sub": "Complete coverage from order to delivery",
+      "items": [
+        "Customer order portal (status, invoices, claims)",
+        "eProof / online proof approvals with annotations",
+        "Automatic preflight & PDF fixes + report",
+        "APS production planning by due dates and machines",
+        "MES-lite terminals: start/stop, job reporting, checklists",
+        "OEE/TPM dashboards, downtime reasons, trends",
+        "Track & Trace + shipping, carriers, POD archiving",
+        "Material/spare-parts store: FIFO, batches, mobile stocktakes",
+        "Quoting & costing (templates, standards, margin)",
+        "IoT machine data capture, alarms, sensors",
+        "AI predictions of failures and schedule slippage, lead-time estimate",
+        "RMA/complaints module with 8D report",
+        "Integrations: ERP/MIS, e-shop, accounting, BI",
+        "Archiving & versioning of print assets with permissions"
+      ]
+    }
   }
 }
+
+
+
+
+
 
 
